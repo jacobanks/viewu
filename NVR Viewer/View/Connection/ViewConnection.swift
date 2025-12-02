@@ -11,7 +11,6 @@ struct ViewConnection: View {
     
     let title: String
     @State var brokerAddress: String = "127.0.0.1"
-    @State private var path = NavigationPath()
     @EnvironmentObject private var mqttManager: MQTTManager
     
     var body: some View {

@@ -18,7 +18,6 @@ struct ViewEventDetail: View {
     let container: EndpointOptions
     
     @State private var player = AVPlayer()
-    @State private var path = NavigationPath()
     
     var frigatePlusOn: Bool = UserDefaults.standard.bool(forKey: "frigatePlusOn")
     var developerModeIsOn: Bool = UserDefaults.standard.bool(forKey: "developerModeIsOn")
@@ -43,10 +42,9 @@ struct ViewEventDetail: View {
         .makeConnectable()
         .autoconnect()
     
-    init(text: String, container: EndpointOptions, path: NavigationPath = NavigationPath(), showButton: Bool, showClip: Bool) {
+    init(text: String, container: EndpointOptions, showButton: Bool, showClip: Bool) {
         self.text = text
         self.container = container
-        self.path = path
         self.showButton = showButton
         self.showClip = showClip
     }
@@ -56,312 +54,86 @@ struct ViewEventDetail: View {
     
     //TODO Overlays
     var body: some View {
-        
-        //Top Bar Line
-        HStack {
-            Spacer()
-            Rectangle()
-                .fill(Color.orange)
-                .frame(width: UIScreen.screenWidth * 0.85, height: 1.5)
-            Spacer()
-        }
-        .padding(.top, 20)
-        .padding(.bottom, 30)
-        .frame(maxWidth: .infinity,maxHeight: 1.5 )
-        
-        
-        GeometryReader { geometry in
-            
-            VStack {
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    
-                    //Top Layout Display Info
-                    HStack{
-                        VStack(spacing:2){
-                            //Label("\(container.cameraName!.capitalized)", systemImage: "web.camera")
-                            Rectangle()
-                                .fill(Color.orange.opacity(0.6))
-                                .padding(0)
-                                .frame(width:(geometry.size.width / 2), height: 50)
-                                .modifier(CardBackground2())
-                                .overlay(
-                                    Label("\(container.cameraName!.capitalized)", systemImage: "web.camera")
-                                        .font(.system(size: 15))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(.white)
-                                )
-                            
-                            //Label("\(container.label!.capitalized)", systemImage: "figure.walk.motion")
-                            Rectangle()
-                                .fill(Color.red.opacity(0.6))
-                                .padding(0)
-                                .frame(width:(geometry.size.width / 2), height: 50)
-                                .modifier(CardBackground2())
-                                .overlay(
-                                    Label("\(container.label!.capitalized)", systemImage: "figure.walk.motion")
-                                        .font(.system(size: 15))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(.white)
-                                )
-                            
-                            
-                            if developerModeIsOn {
-                                
-                                Rectangle()
-                                    .fill(Color.gray.opacity(0.6))
-                                    .padding(0)
-                                    .frame(width:(geometry.size.width / 2), height: 50)
-                                    .modifier(CardBackground2())
-                                    .overlay(
-                                        Label("\(container.type!)", systemImage: "moonphase.new.moon.inverse")
-                                            .font(.system(size: 15))
-                                            .fontWeight(.regular)
-                                            .foregroundColor(.white)
-                                    )
-                            }
-                        }
-                        .frame(width: geometry.size.width/2, alignment: .trailing)
-                        
-                        
-                        if idiom == .pad {
-                           if orientation.isLandscape {
-                               VStack(spacing:2){
-                                   EnteredZones(zones: container.enteredZones!)
-                                       .frame( maxWidth: .infinity, alignment: .leading)
-                               }
-                               .frame( maxWidth: geometry.size.width * 2, alignment: .leading)
-                           }
-                           else {
-                               VStack(spacing:2){
-                                   EnteredZones(zones: container.enteredZones!)
-                                       .frame( maxWidth: .infinity, alignment: .leading)
-                               }
-                               .frame( maxWidth: .infinity, alignment: .leading)
-                           }
-                        } else {
-                            if orientation.isLandscape {
-                                VStack(spacing:2){
-                                    EnteredZones(zones: container.enteredZones!)
-                                        .frame( maxWidth: .infinity, alignment: .leading)
-                                }
-                                .frame( maxWidth: geometry.size.width * 2, alignment: .leading)
-                            }
-                            else {
-                                VStack(spacing:2){
-                                    EnteredZones(zones: container.enteredZones!)
-                                        .frame( maxWidth: .infinity, alignment: .leading)
-                                }
-                                .frame( maxWidth: .infinity, alignment: .leading)
-                            }
-                        }
-                        
-                         
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 20)
-                    .padding(.trailing, 20)
-                    
-                    //Video Segment
-                    if showClip {
-                        Spacer()
-                            .frame(height: 10)
-                        
-                        if( container.m3u8 != nil ){
-                              
-                            //iPad
-                            if idiom == .pad {
-                                
-                                HStack{
-                                    Text("Video Segment")
-                                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                                        .font(.system(size: 20))
-                                        .fontWeight(.regular)
-                                        .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                        .frame(width: geometry.size.width, alignment: .leading)
-                                }
-                                
-                                if orientation.isLandscape {
-                                    ViewPlayVideo(urlString: container.m3u8!)
-                                    //.overlay(CameraOverlayVideoClip(toCopy: container.m3u8! ), alignment: .bottomTrailing)
-                                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                                        .aspectRatio(16/9, contentMode: .fill)
-                                        .frame(width: ((geometry.size.width) ), alignment: .leading)
-                                }
-                                else {
-                                    ViewPlayVideo(urlString: container.m3u8!)
-                                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                                        .aspectRatio(16/9, contentMode: .fill)
-                                        .frame(width: (geometry.size.width ),  alignment: .leading)
-                                }
-                            //iPhone
-                            } else {
-                                 
-                                if orientation.isLandscape {
-                                    HStack{
-                                        Text("Video Segment")
-                                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                                            .font(.system(size: 20))
-                                            .fontWeight(.regular)
-                                            .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                            .frame(width: geometry.size.width, alignment: .leading)
-                                    }
-                                    ViewPlayVideo(urlString: container.m3u8!)
-                                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 20, trailing: 20))
-                                        .aspectRatio(16/9, contentMode: .fill)
-                                        .frame(width: (geometry.size.width + 20) ,  alignment: .leading)
-                                }
-                                else {
-                                    HStack{
-                                        Text("Video Segment")
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                            .font(.system(size: 20))
-                                            .fontWeight(.regular)
-                                            .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                            .frame(width: geometry.size.width, alignment: .leading)
-                                    }
-                                    ViewPlayVideo(urlString: container.m3u8!)
-                                        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 60))
-                                        .aspectRatio(16/9, contentMode: .fill)
-                                        .frame(width: geometry.size.width + 40, alignment: .leading)
-                                }
-                            } 
-                        }
-                    }
- 
-                    //Snapshot
-                    if idiom == .pad{
-                        if isLargeiPad() {
-                            Spacer()
-                                .frame(height: 40)
-                        } else { 
-                            Spacer()
-                                .frame(height: 145)
-                        }
-                        
-                    } else {
-                        //Text("\(UIScreen.main.nativeBounds.height / UIScreen.main.nativeScale)")
-                        if isLargeiPhone() {
-                            //Text("Large iPhone")
-                            Spacer()
-                                .frame(height: 36)
-                        } else {
-                            //Text("Small iPhone")
-                            Spacer()
-                                .frame(height: 65)
-                        }
-                    }
-                    
-                     
-                    //iPad
-                    if idiom == .pad {
-                        HStack{
-                            Text("Snapshot")
-                                .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 0))
-                                .font(.system(size: 20))
+        ScrollView {
+            VStack(spacing: 24) {
+                //Top Layout Display Info
+                HStack{
+                    VStack(spacing:2){
+                        Label("\(container.cameraName!.capitalized)", systemImage: "web.camera")
+                            .font(.system(size: 15))
+                            .fontWeight(.regular)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding(16)
+                            .background(Color.orange.opacity(0.6))
+                            .modifier(CardBackground2())
+
+                            Label("\(container.label!.capitalized)", systemImage: "figure.walk.motion")
+                                .font(.system(size: 15))
                                 .fontWeight(.regular)
-                                .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                .frame(width: geometry.size.width, alignment: .leading)
-                        }
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding(16)
+                                .background(Color.red.opacity(0.6))
+                                .modifier(CardBackground2())
                         
-                        if orientation.isLandscape {
-                            if(container.id != nil && container.snapshot != nil && container.frigatePlus != nil) {
-                                ViewUIImageFull(urlString: container.snapshot!)
-                                //.modifier(CardBackground())
-                                //.overlay(CameraOverlaySnapShot(eventId: container.id!, toCopy: container.snapshot!, frigatePlus: container.frigatePlus! ), alignment: .bottomTrailing)
-                                //.aspectRatio(16/9, contentMode: .fill)
-                                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                                    .frame(maxWidth: geometry.size.width, maxHeight: .infinity, alignment: .leading)
-                            }
-                            //Obsolete since the app now does http fetch
-                            //ViewEventSlideShow(eventId: container.id!)
-                        }
-                        else {
-                            if(container.id != nil && container.snapshot != nil && container.frigatePlus != nil) {
-                                ViewUIImageFull(urlString: container.snapshot!)
-                                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
-                                    .frame(maxWidth: geometry.size.width, maxHeight: .infinity, alignment: .leading)
-                                //.background(.yellow)
-                            }
+                        
+                        if developerModeIsOn {
+                            Label("\(container.type!)", systemImage: "moonphase.new.moon.inverse")
+                                .font(.system(size: 15))
+                                .fontWeight(.regular)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .padding(16)
+                                .background(Color.gray.opacity(0.6))
+                                .modifier(CardBackground2())
                         }
                     }
-                    //iPhone
-                    else {
-                        
-                        
-                        if orientation.isLandscape {
-                            HStack{
-                                Text("Snapshot")
-                                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 0))
-                                    .font(.system(size: 20))
-                                    .fontWeight(.regular)
-                                    .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                    .frame(width: geometry.size.width, alignment: .leading)
-                            }
-                            
-                            if(container.id != nil && container.snapshot != nil && container.frigatePlus != nil) {
-                                ViewUIImageFull(urlString: container.snapshot!)
-                                    .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
-                                    .frame(maxWidth: geometry.size.width, maxHeight: .infinity, alignment: .leading)
-                                //.background(Color.green)
-                            }
-                        }
-                        else {
-                            HStack{
-                                Text("Snapshot")
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                    .font(.system(size: 20))
-                                    .fontWeight(.regular)
-                                    .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                    .frame(width: geometry.size.width, alignment: .leading)
-                            }
-                            
-                            if(container.id != nil && container.snapshot != nil && container.frigatePlus != nil) {
-                                
-                                ViewUIImageFull(urlString: container.snapshot!)
-                                    .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 60))
-                                    .frame(maxWidth: (geometry.size.width + 40), maxHeight: .infinity,  alignment: .leading)
-                                //.background(Color.yellow)
-                            }
-                        }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+
+                    if let enteredZones = container.enteredZones {
+                        // TODO: Fix truncated text (use normal frames)
+                        EnteredZones(zones: enteredZones)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                     }
-                    
-                    
-                    //Dumbest fix ever! =)
-                    if idiom == .pad {
-                        
-                        if orientation.isLandscape {
-                            ForEach(0..<52) { index in
-                                Text("")
-                            }
-                        }
-                        else {
-                            ForEach(0..<35) { index in
-                                Text("")
-                            }
-                        }
-                    } else {
-                        if orientation.isLandscape {
-                            ForEach(0..<35) { index in
-                                Text("")
-                            }
-                        }
-                        else {
-                            ForEach(0..<17) { index in
-                                Text("")
-                            }
-                        }
-                    }
-                    
-                    
-                } // End of ScrollView
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 20)
+                .padding(.trailing, 20)
                 
-                
-            }
+                //Video Segment
+                if showClip, container.m3u8 != nil {
+                    VStack(spacing: 8) {
+                        Text("Video Segment")
+                            .padding(.horizontal)
+                            .font(.system(size: 20))
+                            .fontWeight(.regular)
+                            .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        ViewPlayVideo(urlString: container.m3u8!)
+                            .padding(.horizontal)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+
+                if let snapshot = container.snapshot, container.id != nil && container.frigatePlus != nil {
+                    VStack(spacing: 8) {
+                        Text("Snapshot")
+                            .padding(.horizontal)
+                            .font(.system(size: 20))
+                            .fontWeight(.regular)
+                            .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        ViewUIImageFull(urlString: snapshot)
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 60))
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+            } // End of ScrollView
             .navigationBarTitle(text, displayMode: .inline)
-        }
-        .onReceive(orientationChanged) { _ in
-            self.orientation = UIDevice.current.orientation
+            .padding(.bottom, 24)
         }
     }
     
@@ -391,216 +163,38 @@ struct ViewEventDetail: View {
         }
         
         var body: some View {
-            
-            //iPAD
-            if idiom == .pad {
-                if orientation.isLandscape {
-                    if !enteredZones.isEmpty {
-                        
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                ForEach(enteredZones, id: \.self) { zone in
-                                    
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.6))
-                                        .padding(0)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity) //(geometry.size.width * 5)+80
-                                        .modifier(CardBackground2())
-                                        .overlay(
-                                            Label("\(zone)", systemImage: "")
-                                                .font(.system(size: 15))
-                                                .fontWeight(.regular)
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, maxHeight: 20) //max(.infinity, 400) geometry.size.width
-                                        )
-                                        //.padding(.trailing, 20)
-                                }
-                            }
-                            //.frame( maxWidth: (geometry.size.width  * 4), alignment: .leading)
-                            .frame( maxWidth: .infinity, alignment: .leading)
-                            //.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -150))
-                        }
-                    }
-                    else {
-                        VStack(spacing:2){
-                            
-                            Rectangle()
-                                .fill(Color.blue.opacity(0.6))
-                                .padding(0)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .modifier(CardBackground2())
-                                .overlay(
-                                    Label("No Zones Detected", systemImage: "")
-                                        .font(.system(size: 15))
-                                        .fontWeight(.regular)
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity, maxHeight: 20)
-                                )
-                                //.padding(.trailing, 40)
-                        }
-                        .frame( maxWidth: .infinity, alignment: .leading)
-                        .padding(0)
-                    }
-                }
-                else {
-                    if !enteredZones.isEmpty {
-                        
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                ForEach(enteredZones, id: \.self) { zone in
-                                    
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.6))
-                                        .padding(0)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity) //(geometry.size.width * 5)+80
-                                        .modifier(CardBackground2())
-                                        .overlay(
-                                            Label("\(zone)", systemImage: "")
-                                                .font(.system(size: 15))
-                                                .fontWeight(.regular)
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, maxHeight: 20) //max(.infinity, 400) geometry.size.width
-                                        )
-                                        //.padding(.trailing, 20)
-                                }
-                            }
-                            //.frame( maxWidth: (geometry.size.width  * 4), alignment: .leading)
-                            .frame( maxWidth: .infinity, alignment: .leading)
-                            //.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -150))
-                        }
-                    }
-                    else {
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                Rectangle()
-                                    .fill(Color.blue.opacity(0.6))
-                                    .padding(0)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .modifier(CardBackground2())
-                                    .overlay(
-                                        Label("No Zones Detected", systemImage: "")
-                                            .font(.system(size: 15))
-                                            .fontWeight(.regular)
-                                            .foregroundColor(.white)
-                                            .frame(maxWidth: .infinity, maxHeight: 20)
-                                    )
-                                    //.padding(.trailing, 40)
-                            }
-                            .frame( maxWidth: geometry.size.width  * 2, alignment: .leading)
+            if !enteredZones.isEmpty {
+                // TODO: Confirm this looks good with fake data
+                VStack(spacing:2){
+                    ForEach(enteredZones, id: \.self) { zone in
+                        Rectangle()
+                            .fill(Color.blue.opacity(0.6))
                             .padding(0)
-                        }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .modifier(CardBackground2())
+                            .overlay(
+                                Label("\(zone)", systemImage: "")
+                                    .font(.system(size: 15))
+                                    .fontWeight(.regular)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity, maxHeight: 20)
+                            )
+                            .padding(.trailing, 40)
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(0)
+            } else {
+                Text("No Zones Detected")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .font(.system(size: 15))
+                    .fontWeight(.regular)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue.opacity(0.6))
+                    .modifier(CardBackground2())
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            //iPHONE
-            else {
-                if orientation.isLandscape {
-                    if !enteredZones.isEmpty {
-                        
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                ForEach(enteredZones, id: \.self) { zone in
-                                    
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.6))
-                                        .padding(0)
-                                        .frame(maxWidth: .infinity, maxHeight: .infinity) //(geometry.size.width * 5)+80
-                                        .modifier(CardBackground2())
-                                        .overlay(
-                                            Label("\(zone)", systemImage: "")
-                                                .font(.system(size: 15))
-                                                .fontWeight(.regular)
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, maxHeight: 20) //max(.infinity, 400) geometry.size.width
-                                        )
-                                        //.padding(.trailing, 20)
-                                }
-                            }
-                            //.frame( maxWidth: (geometry.size.width  * 4), alignment: .leading)
-                            .frame( maxWidth: .infinity, alignment: .leading)
-                            //.padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: -150))
-                        }
-                    }
-                    else {
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                Rectangle()
-                                    .fill(Color.blue.opacity(0.6))
-                                    .padding(0)
-                                    .frame(maxWidth: geometry.size.width  * 2, maxHeight: .infinity)
-                                    .modifier(CardBackground2())
-                                    .overlay(
-                                        Label("No Zones Detected", systemImage: "")
-                                            .font(.system(size: 15))
-                                            .fontWeight(.regular)
-                                            .foregroundColor(.white)
-                                            .frame(maxWidth: .infinity, maxHeight: 20)
-                                    )
-                                    //.padding(.trailing, 40)
-                            }
-                            .frame( maxWidth: geometry.size.width  * 2, alignment: .leading)
-                            .padding(0)
-                        }
-                    }
-                }
-                else {
-                    if !enteredZones.isEmpty {
-                        
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                ForEach(enteredZones, id: \.self) { zone in
-                                    
-                                    Rectangle()
-                                        .fill(Color.blue.opacity(0.6))
-                                        .padding(0)
-                                        .frame(maxWidth:(geometry.size.width * 2), maxHeight: .infinity)
-                                        .modifier(CardBackground2())
-                                        .overlay(
-                                            Label("\(zone)", systemImage: "")
-                                                .font(.system(size: 15))
-                                                .fontWeight(.regular)
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, maxHeight: 20)
-                                        )
-                                        .padding(.trailing, 40)
-                                }
-                            }
-                            .frame( maxWidth: geometry.size.width  * 2, alignment: .leading)
-                            .padding(0)
-                        }
-                    }
-                    else {
-                        GeometryReader{ geometry in
-                            VStack(spacing:2){
-                                
-                                Rectangle()
-                                    .fill(Color.blue.opacity(0.6))
-                                    .padding(0)
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .modifier(CardBackground2())
-                                    .overlay(
-                                        Label("No Zones Detected", systemImage: "")
-                                            .font(.system(size: 15))
-                                            .fontWeight(.regular)
-                                            .foregroundColor(.white)
-                                            .frame(maxWidth: .infinity, maxHeight: 20)
-                                    )
-                                    .padding(.trailing, 40)
-                            }
-                            .frame( maxWidth: geometry.size.width  * 2, alignment: .leading)
-                            .padding(0)
-                        }
-                    }
-                }
-            }
-            
-            
         }
     }
     

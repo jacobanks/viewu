@@ -46,7 +46,6 @@
 		342554BE2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342554BD2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift */; };
 		34640F2C2BA4D3430085F726 /* AVResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34640F2B2BA4D3430085F726 /* AVResource.swift */; };
 		346542E02B9783860037BA1D /* ViewEventsHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346542DF2B9783860037BA1D /* ViewEventsHistory.swift */; };
-		346542E22B982EAD0037BA1D /* ViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346542E12B982EAD0037BA1D /* ViewTest.swift */; };
 		346542E42B983CE60037BA1D /* ViewEventInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346542E32B983CE60037BA1D /* ViewEventInformation.swift */; };
 		348333A22BB8AB9700ED1DF2 /* RTSPPlayer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */; };
 		348333C02BB8DFC600ED1DF2 /* ViewLive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348333BF2BB8DFC600ED1DF2 /* ViewLive.swift */; };
@@ -155,7 +154,6 @@
 		342554BD2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUIImageFull2.swift; sourceTree = "<group>"; };
 		34640F2B2BA4D3430085F726 /* AVResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVResource.swift; sourceTree = "<group>"; };
 		346542DF2B9783860037BA1D /* ViewEventsHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventsHistory.swift; sourceTree = "<group>"; };
-		346542E12B982EAD0037BA1D /* ViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewTest.swift; sourceTree = "<group>"; };
 		346542E32B983CE60037BA1D /* ViewEventInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventInformation.swift; sourceTree = "<group>"; };
 		346542E52B9982D70037BA1D /* NVR-Viewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "NVR-Viewer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTSPPlayer2.swift; sourceTree = "<group>"; };
@@ -395,7 +393,6 @@
 				34D5F0102B940E23002A84B0 /* Connection */,
 				34D5F0112B940E31002A84B0 /* Events */,
 				34D5F00F2B940E0E002A84B0 /* Settings */,
-				346542E12B982EAD0037BA1D /* ViewTest.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -697,7 +694,6 @@
 				34045AE72EC2CDA200D90B7F /* ViewQuickDayFilter.swift in Sources */,
 				34BBA47F2BAE164400A6004E /* DataController.swift in Sources */,
 				34D5EFE92B92ABA4002A84B0 /* ViewCamera.swift in Sources */,
-				346542E22B982EAD0037BA1D /* ViewTest.swift in Sources */,
 				34D5EFF12B92B1CB002A84B0 /* MQTTManager.swift in Sources */,
 				34BBA4812BAE3A9000A6004E /* EventStorage.swift in Sources */,
 				34D5F0032B92B453002A84B0 /* ViewUIImageFull.swift in Sources */,

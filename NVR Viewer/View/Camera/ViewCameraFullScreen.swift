@@ -139,9 +139,6 @@ struct ViewCameraFullScreen: View {
             .background(Color(.init(white: 10, alpha: 0))) 
             .rotationEffect(.degrees(90))
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-            .navigationDestination(isPresented: $showCameras){
-                ViewCamera(title: "Live Cameras")
-            }
         }
     }
     

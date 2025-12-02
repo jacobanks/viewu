@@ -199,7 +199,6 @@ struct ViewEventCard: View {
                 })
             }
         }
-        
     }
     
     struct EnteredZones: View {

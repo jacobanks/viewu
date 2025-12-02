@@ -43,7 +43,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
  
-        parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 1, applicationState: "active")
+        parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 0, applicationState: "active")
         
         
         completionHandler([[.banner, .badge, .sound]])
@@ -62,16 +62,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             switch application.applicationState {
             case .active:
                 //print("1. do stuff in case App is active")
-                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 0, applicationState: "active")
+                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 1, applicationState: "active")
             case .inactive:
                 //print("2. do stuff in case App is .inactive")
-                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 0, applicationState: "inactive")
+                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 1, applicationState: "inactive")
             case .background:
                 //print("3. do stuff in case App is .background")
-                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 0, applicationState: "background")
+                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 1, applicationState: "background")
             @unknown default:
                 //print("4. default")
-                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 0, applicationState: "default")
+                parseUserInfo(userInfo: userInfo, transportType: "didReceiveRemoteNotification", newPage: 1, applicationState: "default")
             }
             
             completionHandler(.newData)

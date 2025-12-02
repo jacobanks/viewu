@@ -22,8 +22,6 @@ struct ViewSettings: View {
     @State private var scale = 1.0
     @State private var showingAlert = false
     @State private var showPassword = false
-    @State private var showNVR = false
-    @State private var showNotificationManager = false
 
     @AppStorage("nvrIPAddress") private var nvrIPAddress: String = ""
     @AppStorage("nvrPortAddress") private var nvrPortAddress: String = "5000"
@@ -83,8 +81,8 @@ struct ViewSettings: View {
                     Toggle("Enabled", isOn: $notificationModeIsOn)
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
                     if notificationModeIsOn {
-                        Button {
-                            showNotificationManager.toggle()
+                        NavigationLink {
+                            ViewAPN(title: "Notification Manager")
                         } label: {
                             Text("Notifications")
                         }
@@ -260,8 +258,10 @@ struct ViewSettings: View {
                 }
                 
                 Section {
-                    Button("Config") {
-                        showNVR.toggle()
+                    NavigationLink {
+                        ViewNVRDetails()
+                    } label: {
+                        Text("Details")
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
 
@@ -528,13 +528,6 @@ struct ViewSettings: View {
             }
         }
         .navigationBarTitle(title, displayMode: .inline)
-        .navigationDestination(isPresented: $showNVR){
-            ViewNVRDetails()
-        }
-        .navigationDestination(isPresented: $showNotificationManager){
-            //ViewNotificationManager(title: "Notification Manager")
-            ViewAPN(title: "Notification Manager")
-        }
     }
     
     struct CustomPressEffectButtonStyle: ButtonStyle {

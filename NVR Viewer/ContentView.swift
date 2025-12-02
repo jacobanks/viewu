@@ -29,10 +29,9 @@ struct ContentView: View {
     @StateObject var nvrManager = NVRConfig.shared()
     @StateObject var notificationManager = NotificationManager() //this may not be needed here
     
-    @State public var Connection:Bool = false
-    @State private var showConnection = false
     @State private var showNVR = false // move to settings
-    
+    @State private var selection: Int = 0
+
     //@AppStorage("resetTips") var resetTips = false
     @AppStorage("developerModeIsOn") var developerModeIsOn = false
     @AppStorage("frigateAlertsRetain")  var frigateAlertsRetain: Int = 10
@@ -45,7 +44,7 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     
     var body: some View{
-        TabView {
+        TabView(selection: $selection) {
             NavigationStack {
                 ViewCamera(title: "Live Cameras")
             }
@@ -75,8 +74,6 @@ struct ContentView: View {
             NavigationStack {
                 ViewSettings(title: "Settings")
             }
-            .environmentObject(nvrManager)
-            .environmentObject(mqttManager)
             .tabItem {
                 Label("Settings", systemImage: "gearshape.2")
             }
@@ -95,10 +92,9 @@ struct ContentView: View {
                     if developerModeIsOn {
                         do {
                             Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Info", text: "Entry")
-                            //if let responseString = String(data: data, encoding: .utf8) {
-                            if String(data: data, encoding: .utf8) != nil {
-                                //print("Raw response data: \(responseString)")
-                                //Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Result", text: "\(responseString)")
+                            if let responseString = String(data: data, encoding: .utf8) {
+                                print("Raw response data: \(responseString)")
+                                Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Result", text: "\(responseString)")
                             }
                         }
                     }
@@ -108,7 +104,6 @@ struct ContentView: View {
                         //print("=1===============================================================================================")
                         
                         //FRIGATE 16+ reguires NVRConfigurationCall2
-                        //config.item = try JSONDecoder().decode(NVRConfigurationCall.self, from: data)
                         config.item = try JSONDecoder().decode(NVRConfigurationCall2.self, from: data)
                         
                         
@@ -159,10 +154,10 @@ struct ContentView: View {
                 
             }
         }
-//            .onReceive(notificationManager2.$newPage) {
-//                guard let notificationSelection = $0 else  { return }
-//                self.selection = notificationSelection
-//            }
+        .onReceive(notificationManager2.$newPage) {
+            guard let notificationSelection = $0 else  { return }
+            self.selection = notificationSelection
+        }
         .onChange(of: scenePhase) { _, newScenePhase in
             DispatchQueue.main.async {
                 if newScenePhase == .active {
@@ -185,33 +180,9 @@ struct ContentView: View {
         }
         .environmentObject(mqttManager)
         .environmentObject(nvrManager)
-        .navigationDestination(isPresented: $showConnection){
-            ViewConnection(title: "Connection")
-                .environmentObject(nvrManager)
-                .environmentObject(mqttManager)
-        }
-//        .navigationDestination(for: Cameras.self){ config in
-//            ViewCameraDetails(text: "\(config.name.uppercased()) Camera Details", cameras: config)
-//        }
-        .navigationDestination(for: Cameras2.self){ config in
-            ViewCameraDetails2(text: "\(config.name.uppercased()) Camera Details", cameras: config)
-        }
-        .navigationDestination(for: EndpointOptions.self){ eps in
-            ViewEventDetail(text: convertDateTime(time: eps.frameTime!), container: eps, showButton: false, showClip: true)
-        }
-        .navigationDestination(for: String.self){ jsonObject in
-            if let dataJson = jsonObject.data(using: .utf8) {
-                let epsArray = try! JSONDecoder().decode([EndpointOptions].self, from: dataJson)
-                ViewEventInformation( endPointOptionsArray: epsArray)
-            }
-        }
-        .navigationDestination(for: Int.self){ page in
-            ViewTest(title: "cow")
-        }
     }
     
     func sheduleBackgroundTask() async {
-        
         let request = BGAppRefreshTaskRequest(identifier: "viewu_refresh")
         request.earliestBeginDate = Calendar.current.date(byAdding: .second, value: 30 * 60, to: Date())
         do {
@@ -220,27 +191,6 @@ struct ContentView: View {
         } catch(let error) {
             print("DEBUG: Scheduling Error \(error.localizedDescription)")
         }
-    }
-    
-    private func convertTime(time: Double) -> String{
-        let date = Date(timeIntervalSince1970: time)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeZone = .current
-        let localDate = dateFormatter.string(from: date)
-        return localDate
-    }
-    
-    private func convertDateTime(time: Double) -> String{
-        let date = Date(timeIntervalSince1970: time)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        dateFormatter.timeZone = .current
-        var localDate = dateFormatter.string(from: date)
-        localDate.replace("at", with: "")
-        return localDate
     }
 }
 

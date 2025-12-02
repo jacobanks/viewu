@@ -41,7 +41,6 @@ struct ViewEventsHistory: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     HStack{
                         Text("\(epsSup3.list3.count)")
-                            //.font(.system(size: 16, weight: .medium, design: .default))
                             .font(.system(size: 20))
                             .fontWeight(.regular)
                             .foregroundColor(.gray)
@@ -71,6 +70,9 @@ struct ViewEventsHistory: View {
             ViewFilter()
                 .presentationDetents([.large])
         }
+        .navigationDestination(for: EndpointOptions.self){ eps in
+            ViewEventDetail(text: convertDateTime(time: eps.frameTime!), container: eps, showButton: false, showClip: true)
+        }
     }
  
     private func deserializeObject(object: Data?) ->  String{
@@ -87,27 +89,6 @@ struct ViewEventsHistory: View {
         dateFormatter.timeZone = .current
         var localDate = dateFormatter.string(from: date)
         localDate.replace("at", with: "")
-        return localDate
-    }
-    
-    private func convertDate(time: Double) -> String{
-        let date = Date(timeIntervalSince1970: time)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM YYYY dd" // hh:mm a"
-        dateFormatter.timeStyle = DateFormatter.Style.none
-        dateFormatter.dateStyle = DateFormatter.Style.medium
-        dateFormatter.timeZone = .current
-        let localDate = dateFormatter.string(from: date)
-        return localDate
-    }
-    
-    private func convertTime(time: Double) -> String{
-        let date = Date(timeIntervalSince1970: time)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short
-        dateFormatter.dateStyle = DateFormatter.Style.none
-        dateFormatter.timeZone = .current
-        let localDate = dateFormatter.string(from: date)
         return localDate
     }
 }

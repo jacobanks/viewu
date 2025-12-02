@@ -31,8 +31,13 @@ struct ViewNVRDetails: View {
         Form{
             Section{
                 ForEach(Array(config.item.cameras.keys).enumerated().sorted(by: {$0 < $1} ), id: \.element) { index, camera in
-                    NavigationLink("\(camera)", value: config.item.cameras[camera])
-                        .foregroundStyle(.blue)
+                    NavigationLink {
+                        if let cam = config.item.cameras[camera] {
+                            ViewCameraDetails2(text: "\(cam.name.uppercased()) Camera Details", cameras: cam)
+                        }
+                    } label: {
+                        Text(camera)
+                    }
                 }
             } header: {
                 Text("Cameras")

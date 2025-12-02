@@ -34,330 +34,51 @@ struct ViewUIImageFull: View{
     @State private var finalScale: CGFloat = 1.0
     
     var body: some View {
-        
-        GeometryReader { geometry in
+        VStack {
             if let data = data, let uiimage = UIImage(data: data){
-                
-                //iPAD
-                if idiom == .pad {
-                    if orientation.isLandscape {
-                        
-                        VStack( spacing: 0){
-                            
-                            Image(uiImage: uiimage)
-                                .resizable()
-                                .frame(width: geometry.size.width, height: 690,  alignment: .leading)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .aspectRatio( contentMode: .fill)
-                                .scaledToFill()
-                                .scaleEffect(currentScale * finalScale)
-                                .gesture(
-                                    MagnifyGesture()
-                                        .onChanged { value in
-                                            currentScale = value.magnification
+                VStack( spacing: 0){
+                    Image(uiImage: uiimage)
+                        .resizable()
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .scaledToFill()
+
+                    HStack(alignment: .lastTextBaseline, spacing: 8){
+                        VStack(spacing: 2) {
+                            Label("", systemImage: "square.and.arrow.down")
+                                .foregroundStyle(menuTextColor)
+                                .foregroundStyle(.blue.opacity(0.6))
+                                .font(.system(size: 24))
+                                .onTapGesture {
+                                    Task {
+                                        let urlString = urlString
+                                        if let image = await downloadImage(from: urlString) {
+                                            ImageSaver().saveToPhotoLibrary(image)
+                                            
+                                            showingAlert = true
                                         }
-                                        .onEnded { value in
-                                            finalScale *= value.magnification
-                                            currentScale = 1.0
-                                        }
-                                )
-                            
-                            HStack(alignment: .lastTextBaseline){
-                                
-                                ZStack{
-                                    //Setting the background white so that the blue may be opaque below
-                                    Label("", systemImage: "")
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                        .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                        .background(.white)
-                                    
-                                    HStack(alignment: .lastTextBaseline){
-                                        
-                                        VStack(spacing: 2) {
-                                            Label("", systemImage: "square.and.arrow.down")
-                                                .foregroundStyle(menuTextColor)
-                                                .foregroundStyle(.blue.opacity(0.6))
-                                                .font(.system(size: 24))
-                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                                .onTapGesture {
-                                                    Task {
-                                                        let urlString = urlString
-                                                        if let image = await downloadImage(from: urlString) {
-                                                            ImageSaver().saveToPhotoLibrary(image)
-                                                            
-                                                            showingAlert = true
-                                                        }
-                                                    }
-                                                }
-                                                .alert(isPresented: $showingAlert) {
-                                                    Alert(title: Text("Image Saved"),
-                                                          message: Text("This image has been saved to Photos"),
-                                                          dismissButton: .default(Text("OK")))
-                                                }
-                                        }
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
-                                        .frame(height: 50, alignment: .top)
-                                        //.background(.orange)
-                                        
-                                        Label("", systemImage: "arrow.down.left.and.arrow.up.right.rectangle")
-                                            .foregroundStyle(menuTextColor)
-                                            .foregroundStyle(.blue.opacity(0.6))
-                                            .font(.system(size: 24))
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                            .frame(height: 50, alignment: .bottom)
-                                        //.background(cBlue.opacity(0.6))
-                                            .onTapGesture {
-                                                isFullScreen.toggle()
-                                            }
                                     }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                    .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                    .background(cBlue.opacity(0.6))
                                 }
-                            }
-                        }
-                        .modifier( CardBackground2() )
-                        
-                    }
-                    else {
-                        VStack( spacing: 0){
-                            
-                            Image(uiImage: uiimage)
-                                .resizable()
-                                .frame(width: geometry.size.width, height: 450,  alignment: .leading)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .aspectRatio( contentMode: .fill)
-                                .scaledToFill()
-                                .scaleEffect(currentScale * finalScale)
-                                .gesture(
-                                    MagnifyGesture()
-                                        .onChanged { value in
-                                            currentScale = value.magnification
-                                        }
-                                        .onEnded { value in
-                                            finalScale *= value.magnification
-                                            currentScale = 1.0
-                                        }
-                                )
-                            
-                            HStack(alignment: .lastTextBaseline){
-                                
-                                ZStack{
-                                    //Setting the background white so that the blue may be opaque below
-                                    Label("", systemImage: "")
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                        .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                        .background(.white)
-                                    
-                                    HStack(alignment: .lastTextBaseline){
-                                        
-                                        VStack(spacing: 2) {
-                                            Label("", systemImage: "square.and.arrow.down")
-                                                .foregroundStyle(menuTextColor)
-                                                .foregroundStyle(.blue.opacity(0.6))
-                                                .font(.system(size: 24))
-                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                                .onTapGesture {
-                                                    Task {
-                                                        let urlString = urlString
-                                                        if let image = await downloadImage(from: urlString) {
-                                                            ImageSaver().saveToPhotoLibrary(image)
-                                                            
-                                                            showingAlert = true
-                                                        }
-                                                    }
-                                                }
-                                                .alert(isPresented: $showingAlert) {
-                                                    Alert(title: Text("Image Saved"),
-                                                          message: Text("This image has been saved to Photos"),
-                                                          dismissButton: .default(Text("OK")))
-                                                }
-                                        }
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
-                                        .frame(height: 50, alignment: .top)
-                                        //.background(.orange)
-                                        
-                                        Label("", systemImage: "arrow.down.left.and.arrow.up.right.rectangle")
-                                            .foregroundStyle(menuTextColor)
-                                            .foregroundStyle(.blue.opacity(0.6))
-                                            .font(.system(size: 24))
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                            .frame(height: 50, alignment: .bottom)
-                                        //.background(cBlue.opacity(0.6))
-                                            .onTapGesture {
-                                                isFullScreen.toggle()
-                                            }
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                    .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                    .background(cBlue.opacity(0.6))
+                                .alert(isPresented: $showingAlert) {
+                                    Alert(title: Text("Image Saved"),
+                                          message: Text("This image has been saved to Photos"),
+                                          dismissButton: .default(Text("OK")))
                                 }
-                            }
                         }
-                        .modifier( CardBackground2() )
+
+                        Label("", systemImage: "arrow.down.left.and.arrow.up.right.rectangle")
+                            .foregroundStyle(menuTextColor)
+                            .font(.system(size: 24))
+                            .onTapGesture {
+                                isFullScreen.toggle()
+                            }
                     }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .background(cBlue.opacity(0.6))
                 }
-                // iPHONE
-                else {
-                    if orientation.isLandscape {
-                        
-                        VStack( spacing: 0){
-                            
-                            Image(uiImage: uiimage)
-                                .resizable()
-                                .frame(maxWidth: geometry.size.width, maxHeight: 450, alignment: .leading)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .aspectRatio( contentMode: .fill)
-                                .scaledToFill()
-                                .scaleEffect(currentScale * finalScale)
-                                .gesture(
-                                    MagnifyGesture()
-                                        .onChanged { value in
-                                            currentScale = value.magnification
-                                        }
-                                        .onEnded { value in
-                                            finalScale *= value.magnification
-                                            currentScale = 1.0
-                                        }
-                                )
-                            
-                            HStack(alignment: .lastTextBaseline){
-                                
-                                ZStack{
-                                    //Setting the background white so that the blue may be opaque below
-                                    Label("", systemImage: "")
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                        .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                        .background(.white)
-                                    
-                                    HStack(alignment: .lastTextBaseline){
-                                        
-                                        VStack(spacing: 2) {
-                                            Label("", systemImage: "square.and.arrow.down")
-                                                .foregroundStyle(menuTextColor)
-                                                .foregroundStyle(.blue.opacity(0.6))
-                                                .font(.system(size: 24))
-                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                                .onTapGesture {
-                                                    Task {
-                                                        let urlString = urlString
-                                                        if let image = await downloadImage(from: urlString) {
-                                                            ImageSaver().saveToPhotoLibrary(image)
-                                                            
-                                                            showingAlert = true
-                                                        }
-                                                    }
-                                                }
-                                                .alert(isPresented: $showingAlert) {
-                                                    Alert(title: Text("Image Saved"),
-                                                          message: Text("This image has been saved to Photos"),
-                                                          dismissButton: .default(Text("OK")))
-                                                }
-                                        }
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
-                                        .frame(height: 50, alignment: .top)
-                                        //.background(.orange)
-                                        
-                                        Label("", systemImage: "arrow.down.left.and.arrow.up.right.rectangle")
-                                            .foregroundStyle(menuTextColor)
-                                            .foregroundStyle(.blue.opacity(0.6))
-                                            .font(.system(size: 24))
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                            .frame(height: 50, alignment: .bottom)
-                                        //.background(cBlue.opacity(0.6))
-                                            .onTapGesture {
-                                                isFullScreen.toggle()
-                                            }
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                    .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                    .background(cBlue.opacity(0.6))
-                                }
-                            }
-                        }
-                        .modifier( CardBackground2() )
-                        
-                    }
-                    else {
-                        VStack( spacing: 0){
-                            
-                            Image(uiImage: uiimage)
-                                .resizable()
-                                .frame(maxWidth: geometry.size.width, maxHeight: 250, alignment: .leading)
-                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                .aspectRatio( contentMode: .fill)
-                                .scaledToFill()
-                                .scaleEffect(currentScale * finalScale)
-                                .gesture(
-                                    MagnifyGesture()
-                                        .onChanged { value in
-                                            currentScale = value.magnification
-                                        }
-                                        .onEnded { value in
-                                            finalScale *= value.magnification
-                                            currentScale = 1.0
-                                        }
-                                )
-                            
-                            HStack(alignment: .lastTextBaseline){
-                                
-                                ZStack{
-                                    //Setting the background white so that the blue may be opaque below
-                                    Label("", systemImage: "")
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                        .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                        .background(.white)
-                                    
-                                    HStack(alignment: .lastTextBaseline){
-                                        
-                                        VStack(spacing: 2) {
-                                            Label("", systemImage: "square.and.arrow.down")
-                                                .foregroundStyle(menuTextColor)
-                                                .foregroundStyle(.blue.opacity(0.6))
-                                                .font(.system(size: 24))
-                                                .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                                .onTapGesture {
-                                                    Task {
-                                                        let urlString = urlString
-                                                        if let image = await downloadImage(from: urlString) {
-                                                            ImageSaver().saveToPhotoLibrary(image)
-                                                            
-                                                            showingAlert = true
-                                                        }
-                                                    }
-                                                }
-                                                .alert(isPresented: $showingAlert) {
-                                                    Alert(title: Text("Image Saved"),
-                                                          message: Text("This image has been saved to Photos"),
-                                                          dismissButton: .default(Text("OK")))
-                                                }
-                                        }
-                                        .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 5))
-                                        .frame(height: 50, alignment: .top)
-                                        //.background(.orange)
-                                        
-                                        Label("", systemImage: "arrow.down.left.and.arrow.up.right.rectangle")
-                                            .foregroundStyle(menuTextColor)
-                                            .foregroundStyle(.blue.opacity(0.6))
-                                            .font(.system(size: 24))
-                                            .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-                                            .frame(height: 50, alignment: .bottom)
-                                        //.background(cBlue.opacity(0.6))
-                                            .onTapGesture {
-                                                isFullScreen.toggle()
-                                            }
-                                    }
-                                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 30))
-                                    .frame(width: geometry.size.width, height: 50, alignment: .trailing)
-                                    .background(cBlue.opacity(0.6))
-                                }
-                            }
-                        }
-                        .modifier( CardBackground2() )
-                    }
-                }
-                
-                
+                .modifier( CardBackground2() )
+                .frame(maxWidth: .infinity)
             } else {
                 //Dummy Space
                 Text("")
@@ -392,15 +113,6 @@ struct ViewUIImageFull: View{
         func body(content: Content) -> some View {
             content
                 .cornerRadius(25)
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
-        }
-    }
-    
-    struct CardBackground3: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-            //.cornerRadius(25)
-                .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
                 .shadow(color: Color.black.opacity(0.2), radius: 4)
         }
     }
