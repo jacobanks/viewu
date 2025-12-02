@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MobileVLCKit
+import VLCKitSPM
 import SwiftUI
 
 struct VlcPlayeyRTSP2: UIViewRepresentable{
@@ -244,5 +244,4 @@ struct StreamRTSP2: View {
     }
     
 }
-
 

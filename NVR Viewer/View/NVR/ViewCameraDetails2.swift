@@ -27,7 +27,7 @@ struct ViewCameraDetails2: View {
                     Text("Enabled")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.enabled)")
+                    Text(verbatim: String(cameras.enabled))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -258,7 +258,7 @@ struct ViewCameraDetails2: View {
                     Text("Height")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.live.height)")
+                    Text(verbatim: String(describing: cameras.live.height))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -269,7 +269,7 @@ struct ViewCameraDetails2: View {
                     Text("Quality")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.live.quality)")
+                    Text(verbatim: String(describing: cameras.live.quality))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -296,7 +296,7 @@ struct ViewCameraDetails2: View {
                     Text("enabled")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.mqtt.enabled)")
+                    Text(verbatim: String(describing: cameras.mqtt.enabled))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -307,7 +307,7 @@ struct ViewCameraDetails2: View {
                         Text("bounding_box")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.mqtt.bounding_box)")
+                        Text(verbatim: String(describing: cameras.mqtt.bounding_box))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -317,7 +317,7 @@ struct ViewCameraDetails2: View {
                         Text("crop")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.mqtt.crop)")
+                        Text(verbatim: String(describing: cameras.mqtt.crop))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -327,7 +327,7 @@ struct ViewCameraDetails2: View {
                         Text("height")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.mqtt.height)")
+                        Text(verbatim: String(describing: cameras.mqtt.height))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -337,7 +337,7 @@ struct ViewCameraDetails2: View {
                         Text("quality")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.mqtt.quality)")
+                        Text(verbatim: String(describing: cameras.mqtt.quality))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -347,7 +347,7 @@ struct ViewCameraDetails2: View {
                         Text("timestamp")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.mqtt.timestamp)")
+                        Text(verbatim: String(describing: cameras.mqtt.timestamp))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -364,7 +364,7 @@ struct ViewCameraDetails2: View {
                 Text("Name")
                     .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                     .padding(.leading, 40)
-                Text("\(cameras.name)")
+                Text(verbatim: String(describing: cameras.name))
                     .frame( alignment: .leading)
                     .foregroundStyle(.gray)
             }
@@ -380,7 +380,7 @@ struct ViewCameraDetails2: View {
                         ForEach(Array(cameras.objects.filters.keys), id: \.self) {filter in
                             
                             //Text("Threshold: \(cameras.objects.filters[filter]?.threshold)")
-                            Text("\(filter) Threshold: \(String(describing: cameras.objects.filters[filter]?.threshold))")
+                            Text(verbatim: filter + " Threshold: " + String(describing: cameras.objects.filters[filter]?.threshold))
                                 .frame(width: 400, alignment: .leading)
                                 .foregroundStyle(.gray)
                                 .textSelection(.enabled)
@@ -402,7 +402,7 @@ struct ViewCameraDetails2: View {
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
                     ScrollView(.horizontal){
-                        Text("\(cameras.onvif.autotracking.enabled)")
+                        Text(verbatim: String(describing: cameras.onvif.autotracking.enabled))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -508,7 +508,7 @@ struct ViewCameraDetails2: View {
                         Text("host")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.onvif.host)")
+                        Text(verbatim: String(describing: cameras.onvif.host))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -518,7 +518,7 @@ struct ViewCameraDetails2: View {
                         Text("port")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.onvif.port)")
+                        Text(verbatim: String(describing: cameras.onvif.port))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -539,7 +539,7 @@ struct ViewCameraDetails2: View {
                     Text("enabled")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.record.enabled)")
+                    Text(verbatim: String(describing: cameras.record.enabled))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -582,7 +582,7 @@ struct ViewCameraDetails2: View {
                         Text("expire_interval")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.record.expire_interval)")
+                        Text(verbatim: String(describing: cameras.record.expire_interval))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -606,7 +606,7 @@ struct ViewCameraDetails2: View {
                         Text("retain")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.record.retain.mode)")
+                        Text(verbatim: String(describing: cameras.record.retain.mode))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -616,7 +616,7 @@ struct ViewCameraDetails2: View {
                         Text("retain days -2")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.record.retain.days)")
+                        Text(verbatim: String(describing: cameras.record.retain.days))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -627,7 +627,7 @@ struct ViewCameraDetails2: View {
                         Text("sync_recordings")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.record.sync_recordings)")
+                        Text(verbatim: String(describing: cameras.record.sync_recordings))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -645,7 +645,7 @@ struct ViewCameraDetails2: View {
                     Text("enabled")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.snapshots.enabled)")
+                    Text(verbatim: String(describing: cameras.snapshots.enabled))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -656,7 +656,7 @@ struct ViewCameraDetails2: View {
                         Text("bounding_box")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.bounding_box)")
+                        Text(verbatim: String(describing: cameras.snapshots.bounding_box))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -666,7 +666,7 @@ struct ViewCameraDetails2: View {
                         Text("clean_copy")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.clean_copy)")
+                        Text(verbatim: String(describing: cameras.snapshots.clean_copy))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -676,7 +676,7 @@ struct ViewCameraDetails2: View {
                         Text("crop")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.crop)")
+                        Text(verbatim: String(describing: cameras.snapshots.crop))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -686,7 +686,7 @@ struct ViewCameraDetails2: View {
                         Text("height")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(String(describing: cameras.snapshots.height))")
+                        Text(verbatim: String(describing: cameras.snapshots.height))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -696,7 +696,7 @@ struct ViewCameraDetails2: View {
                         Text("quality")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.quality)")
+                        Text(verbatim: String(describing: cameras.snapshots.quality))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -706,7 +706,7 @@ struct ViewCameraDetails2: View {
                         Text("retain")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.retain.mode)")
+                        Text(verbatim: String(describing: cameras.snapshots.retain.mode))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -716,7 +716,7 @@ struct ViewCameraDetails2: View {
                         Text("retain days -1")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.retain.default)")
+                        Text(verbatim: String(describing: cameras.snapshots.retain.default))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -726,7 +726,7 @@ struct ViewCameraDetails2: View {
                         Text("timestamp")
                             .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                             .padding(.leading, 40)
-                        Text("\(cameras.snapshots.timestamp)")
+                        Text(verbatim: String(describing: cameras.snapshots.timestamp))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -750,7 +750,7 @@ struct ViewCameraDetails2: View {
                             Text("Red")
                                 .frame(width:50, alignment: .leading)
                                 .foregroundStyle(.gray)
-                            Text("\(cameras.timestamp_style.color.red)")
+                            Text(verbatim: String(describing: cameras.timestamp_style.color.red))
                                 .frame( alignment: .leading)
                                 .foregroundStyle(.gray)
                         }
@@ -759,7 +759,7 @@ struct ViewCameraDetails2: View {
                             Text("Blue")
                                 .frame(width:50, alignment: .leading)
                                 .foregroundStyle(.gray)
-                            Text("\(cameras.timestamp_style.color.blue)")
+                            Text(verbatim: String(describing: cameras.timestamp_style.color.blue))
                                 .frame( alignment: .leading)
                                 .foregroundStyle(.gray)
                         }
@@ -768,7 +768,7 @@ struct ViewCameraDetails2: View {
                             Text("Green")
                                 .frame(width:50, alignment: .leading)
                                 .foregroundStyle(.gray)
-                            Text("\(cameras.timestamp_style.color.green)")
+                            Text(verbatim: String(describing: cameras.timestamp_style.color.green))
                                 .frame( alignment: .leading)
                                 .foregroundStyle(.gray)
                         }
@@ -782,7 +782,7 @@ struct ViewCameraDetails2: View {
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
                     ScrollView(.horizontal) {
-                        Text("\(cameras.timestamp_style.format)")
+                        Text(verbatim: String(describing: cameras.timestamp_style.format))
                             .frame( alignment: .leading)
                             .foregroundStyle(.gray)
                     }
@@ -793,7 +793,7 @@ struct ViewCameraDetails2: View {
                     Text("position")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.timestamp_style.position)")
+                    Text(verbatim: String(describing: cameras.timestamp_style.position))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -803,7 +803,7 @@ struct ViewCameraDetails2: View {
                     Text("thickness")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.timestamp_style.thickness)")
+                    Text(verbatim: String(describing: cameras.timestamp_style.thickness))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -821,7 +821,7 @@ struct ViewCameraDetails2: View {
                     Text("dashboard")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.ui.dashboard)")
+                    Text(verbatim: String(describing: cameras.ui.dashboard))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -831,7 +831,7 @@ struct ViewCameraDetails2: View {
                     Text("order")
                         .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
                         .padding(.leading, 40)
-                    Text("\(cameras.ui.order)")
+                    Text(verbatim: String(describing: cameras.ui.order))
                         .frame( alignment: .leading)
                         .foregroundStyle(.gray)
                 }
@@ -847,3 +847,4 @@ struct ViewCameraDetails2: View {
         .navigationBarTitle(text, displayMode: .inline)
     }
 }
+

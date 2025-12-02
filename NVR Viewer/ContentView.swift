@@ -190,9 +190,9 @@ struct ContentView: View {
                 .environmentObject(nvrManager)
                 .environmentObject(mqttManager)
         }
-        .navigationDestination(for: Cameras.self){ config in
-            ViewCameraDetails(text: "\(config.name.uppercased()) Camera Details", cameras: config)
-        }
+//        .navigationDestination(for: Cameras.self){ config in
+//            ViewCameraDetails(text: "\(config.name.uppercased()) Camera Details", cameras: config)
+//        }
         .navigationDestination(for: Cameras2.self){ config in
             ViewCameraDetails2(text: "\(config.name.uppercased()) Camera Details", cameras: config)
         }

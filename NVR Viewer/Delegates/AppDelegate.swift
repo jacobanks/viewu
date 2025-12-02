@@ -7,12 +7,8 @@
 
 import SwiftUI
 import SwiftData
-import Firebase
-import FirebaseMessaging
-import SQLite3
 
-
-class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate, ObservableObject {
+class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, ObservableObject {
     
     @AppStorage("fcm") private var fcmID: String = ""
     weak var notificationManager: NotificationManager?
@@ -32,25 +28,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         application.registerForRemoteNotifications()
-//        FirebaseConfiguration.shared.setLoggerLevel(.min)
-//        FirebaseApp.configure()
-//        Messaging.messaging().delegate = self
         UNUserNotificationCenter.current().delegate = self
         return true
     }
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken;
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        if let fcm = Messaging.messaging().fcmToken {
-            //print("fcm", fcm)
-            fcmID = fcm
-        } else {
-            Log.shared().print(page: "AppDelegate", fn: "messaging", type: "ERROR", text: "Oh No!::UIApplicationDelegateAdaptor::messaging()")
-        }
+        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
+        fcmID = token
     }
  
     func userNotificationCenter(_ center: UNUserNotificationCenter,

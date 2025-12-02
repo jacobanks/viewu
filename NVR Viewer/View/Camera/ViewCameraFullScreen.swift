@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import MobileVLCKit
+import VLCKitSPM
 import SwiftUI
 
 struct ViewCameraFullScreen: View {

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import TipKit
-import PopupView
 
 
 struct ViewAPN: View {

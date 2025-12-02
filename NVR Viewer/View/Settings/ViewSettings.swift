@@ -51,7 +51,6 @@ struct ViewSettings: View {
     @AppStorage("tipsNotificationDomain") private var tipsNotificationDomain: Bool = true
     @AppStorage("tipsNotificationDefault") private var tipsNotificationDefault: Bool = true
     @AppStorage("tipsLiveCameras") private var tipsLiveCameras: Bool = true
-     
     
     //FIX THIS
     //11/05/2025
@@ -62,8 +61,6 @@ struct ViewSettings: View {
     @AppStorage("frigateVersion") private var frigateVersion: String = "0.0-0"
     
     @StateObject var nts = NotificationTemplateString.shared()
-    
-    let widthMultiplier:CGFloat = 2/5.8
     
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     let appBuild = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
@@ -146,66 +143,60 @@ struct ViewSettings: View {
                 Section {
                     HStack{
                         Text("Broker Address:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         TextField("0.0.0.0", text: $mqttIPAddress)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack{
                         Text("Port:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         TextField("1883", text: $mqttPortAddress)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack{
                         Text("Topic:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text("viewu/pairing")
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     if developerModeIsOn {
                         HStack{
                             Text("")
-                                .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                                .padding(.leading, 40)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             Text("frigate/events")
                                 .frame(alignment: .leading)
                         }
-                        .frame(width: UIScreen.screenWidth, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
                     Toggle("Anonymous", isOn: $mqttIsAnonUser)
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
-                    
+
                     if !mqttIsAnonUser {
                         VStack{
                             HStack{
                                 Text("User:")
-                                    .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                                    .padding(.leading, 40)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 TextField("", text: $mqttUser)
                                     .frame(alignment: .leading)
                                     .disabled(mqttIsAnonUser)
                                     .autocapitalization(.none)
                                     .autocorrectionDisabled()
                             }
-                            .frame(width: UIScreen.screenWidth, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
                             HStack{
                                 
                                 Text("Password:")
-                                    .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                                    .padding(.leading, 40)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ZStack {
                                     
@@ -234,9 +225,9 @@ struct ViewSettings: View {
                                 .frame(alignment: .trailing)
                                 .padding(.trailing, 20)
                             }
-                            .frame(width: UIScreen.screenWidth, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
-                        .frame(width: UIScreen.screenWidth, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     
                     Label(mqttManager.isConnected() ? "Connected" : "Disconnected", systemImage: "cable.connector")
@@ -276,8 +267,7 @@ struct ViewSettings: View {
 
                     HStack{
                         Text("Address:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         ScrollView(.horizontal){
                             TextField("0.0.0.0", text: $nvrIPAddress)
                                 .autocapitalization(.none)
@@ -285,15 +275,14 @@ struct ViewSettings: View {
                                 .frame(alignment: .leading)
                         }
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     HStack{
                         Text("Port:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         TextField("5000", text: $nvrPortAddress)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     Toggle("Https", isOn: $nvrIsHttps)
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
                     //                    LabeledContent("NVR Synced", value: "No")
@@ -333,13 +322,13 @@ struct ViewSettings: View {
                 Section {
                     HStack{
                         Text("Allowed")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+
                         Text(notificationManager.hasPermission  ? "Enabled" : "Disabled")
                             .frame(alignment: .leading)
                         //.foregroundStyle(.tertiary)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     //Text("Allowed: \(notificationManager.hasPermission ? "Enabled" : "Disabled")" as String)
                     
@@ -395,12 +384,11 @@ struct ViewSettings: View {
                     
                     HStack{
                         Text("Paired:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text(viewuDevicePairedArg ? "Enabled" : "Disabled")
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     Button("Pair") {
                         viewuDevicePairedArg = false
@@ -468,38 +456,34 @@ struct ViewSettings: View {
                 Section{
                     HStack{
                         Text("App:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text(appVersion!)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
                     HStack{
                         Text("Build:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text(appBuild!)
                             .frame(alignment: .leading)
                         //.foregroundStyle(.tertiary)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     HStack{
                         Text("Server:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text(viewuServerVersion)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     HStack{
                         Text("Frigate:")
-                            .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
-                            .padding(.leading, 40)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text(frigateVersion)
                             .frame(alignment: .leading)
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 } header: {
                     Text("Versions")
                         .font(.caption)
