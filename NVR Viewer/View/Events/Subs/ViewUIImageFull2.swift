@@ -106,19 +106,6 @@ struct ViewUIImageFull2: View {
             }
         }
         .navigationTitle("Snapshot Image")
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss() // Manually dismiss the view
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("Back")
-                        }
-                    }
-                }
-            }
     }
 }
 

@@ -14,7 +14,8 @@ struct ViewEventsHistory: View {
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     let cNVR = APIRequester()
     
-    @State var showViewEventDetail = false
+    @State private var showFilter = false
+
     @ObservedObject var filter2 = EventFilter.shared()
     @ObservedObject var epsSuper = EndpointOptionsSuper.shared()
     @ObservedObject var epsSup3 = EndpointOptionsSuper.shared()
@@ -49,6 +50,11 @@ struct ViewEventsHistory: View {
                             .foregroundStyle(nvrManager.getConnectionState() ? .white : .red)
                     } 
                 }
+                ToolbarItemGroup(placement: .topBarLeading) {
+                    Button("Filters") {
+                        showFilter.toggle()
+                    }
+                }
             }
             .task{
                 EventStorage.shared.readAll3(completion: { res in
@@ -60,6 +66,10 @@ struct ViewEventsHistory: View {
             .scrollContentBackground(.hidden)
             .environment(\.defaultMinListRowHeight, 50)
             .padding(0)
+        }
+        .sheet(isPresented: $showFilter) {
+            ViewFilter()
+                .presentationDetents([.large])
         }
     }
  

@@ -23,26 +23,18 @@ struct ContentView: View {
     
     //
     @EnvironmentObject private var notificationManager2: NotificationManager
-    @State var selection: Int = 0
     
     @StateObject var nts = NotificationTemplateString.shared()
     @StateObject var mqttManager = MQTTManager.shared()
     @StateObject var nvrManager = NVRConfig.shared()
     @StateObject var notificationManager = NotificationManager() //this may not be needed here
     
-    @State private var showFilter = false
     @State public var Connection:Bool = false
-    @State private var showEventList = false
-    @State private var showCamera = false
-    @State private var showSettings = false
     @State private var showConnection = false
-    @State private var showNVR = false
-    @State private var showLog = false
-    @State private var showNotificationManager = false
+    @State private var showNVR = false // move to settings
     
     //@AppStorage("resetTips") var resetTips = false
     @AppStorage("developerModeIsOn") var developerModeIsOn = false
-    @AppStorage("notificationModeIsOn") var notificationModeIsOn = UserDefaults.standard.bool(forKey: "notificationModeIsOn")
     @AppStorage("frigateAlertsRetain")  var frigateAlertsRetain: Int = 10
     @AppStorage("frigateDetectionsRetain")  var frigateDetectionsRetain: Int = 10
     @AppStorage("frigateVersion")  var frigateVersion: String = "0.0-0"
@@ -51,294 +43,170 @@ struct ContentView: View {
     @AppStorage("showTips") var showTips: Bool = true
     
     @Environment(\.scenePhase) var scenePhase
-    @State private var path = NavigationPath()
-     
-    init() {
-        UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-    }
     
     var body: some View{
-        
-        NavigationStack (path: $path) {
-            VStack {
-                
-                ZStack {
-                    GeometryReader { reader in
-                        Color.secondary
-                            .frame(height: reader.safeAreaInsets.top, alignment: .top)
-                            .ignoresSafeArea()
-                    }
-                    
-                    switch selection {
-                    case 0:
-                        
-                        if isOnboarding {
-                            ViewOnBoarding()
-                        } else {
-                            ViewEventListHome()
-                        }
-                        
-                    case 1:
-                        //ViewLive(text: convertDateTime(time: notificationManager2.frameTime!), container: notificationManager2.eps!, showButton: false)
-                        ViewEventDetail(text: convertDateTime(time: notificationManager2.frameTime!), container: notificationManager2.eps!, showButton: true, showClip: false)
-                    case 2:
-                        ViewNVRDetails()
-                    default:
-                        ViewEventListHome()
-                    }
-                }
-            }
-            .task(){
-                //DispatchQueue.global().async { }
-                //DispatchQueue.main.async { }
-                //Load Defaults for app
-                
-                DispatchQueue.main.async {
-                    let url = nvr.getUrl()
-                    let urlString = url + "/api/config"
-                    print(urlString)
-                    cNVR.fetchNVRConfig(urlString: urlString ){ (data, error) in
-                         
-                        guard let data = data else { return }
-                        
-                        if developerModeIsOn {
-                            do {
-                                Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Info", text: "Entry")
-                                //if let responseString = String(data: data, encoding: .utf8) {
-                                if String(data: data, encoding: .utf8) != nil {
-                                    //print("Raw response data: \(responseString)")
-                                    //Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Result", text: "\(responseString)")
-                                }
-                            }
-                        }
-                        
-                        do {
-                            
-                            //print("=1===============================================================================================")
-                            
-                            //FRIGATE 16+ reguires NVRConfigurationCall2
-                            //config.item = try JSONDecoder().decode(NVRConfigurationCall.self, from: data)
-                            config.item = try JSONDecoder().decode(NVRConfigurationCall2.self, from: data)
-                            
-                             
-                            //print("=2===============================================================================================")
-                            //print(config.item)
-                            //                        if let dataJson = jsonObject.data(using: .utf8) {
-                            //                            let epsArray = try! JSONDecoder().decode([EndpointOptions].self, from: dataJson)
-                            //                            ViewEventInformation( endPointOptionsArray: epsArray)
-                            //                        }
-                             
-                            filter2.setCameras(items: config.item.cameras)
-                            filter2.setObject(items: config.item.cameras)
-                            filter2.setZones(items: config.item.cameras)
-                            
-                            frigateVersion = config.item.version
-                            frigateAlertsRetain = config.item.record.alerts.retain.days
-                            frigateDetectionsRetain = config.item.record.detections.retain.days
-                            
-                            // Delete non-retained snapshots
-                            for (_, value) in config.item.cameras{
-                                
-                                let daysBack = value.snapshots.retain.default
-                                let db:Int = Int(daysBack)
-                                let _ = EventStorage.shared.delete(daysBack:db, cameraName: value.name)
-                            }
-                            
-                        }catch (let err){
-                            
-                            //print("=3==========")
-                            print(err)
-                            
-                            Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 1001.1", type: "ERROR", text: "\(err)")
-                            
-                            do {
-                                if let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed ) as? [String: Any] {
-                                    
-                                    Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 2001.1", type: "Info", text: "\(json)")
-                                }
-                            } catch(let err) {
-                                 
-                                Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 2001.2", type: "ERROR", text: "\(err)")
-                            }
-                        }
-                    }
-                    
-                    //Load Events
-                    cNVR.fetchEventsInBackground(urlString: nvr.getUrl(), backgroundFetchEventsEpochtime: backgroundFetchEventsEpochtime, epsType: "ctask" )
-                    
-                }
-            }
-            .onReceive(notificationManager2.$newPage) {
-                guard let notificationSelection = $0 else  { return }
-                self.selection = notificationSelection
-                
-            }
-            .onChange(of: scenePhase) { _, newScenePhase in
-                
-                DispatchQueue.main.async {
-                    
-                    if newScenePhase == .active {
-                        cNVR.fetchEventsInBackground(urlString: nvr.getUrl(), backgroundFetchEventsEpochtime: backgroundFetchEventsEpochtime, epsType: "scenePhase")
-                    }
-                    else if newScenePhase == .inactive {
-                        //do nothing
-                    } else if newScenePhase == .background {
-                        //do nothing
-                    }
-                }
-            }
-            .onAppear{
-                 
-                Task{
-                    await sheduleBackgroundTask()
-                }
-                
-                //check accesibilty to nvr
-                nvrManager.checkConnectionStatus(){data,error in
-                    //do nothing
-                }
-                
-                //TODO check if connection is disconnected first
-                //connect to mqtt broker
-                mqttManager.initializeMQTT()
-                mqttManager.connect()
-            }
-            .environmentObject(mqttManager)
-            .environmentObject(nvrManager)
-            .scrollContentBackground(.hidden)
-            .navigationBarBackButtonHidden()
-            .navigationDestination(isPresented: $showEventList){
-                ViewEventListHome()
-            }
-            .navigationDestination(isPresented: $showNVR){
-                ViewNVRDetails()
-            }
-            .navigationDestination(isPresented: $showSettings){
-                ViewSettings(title: "Settings")
-                    .environmentObject(nvrManager)
-                    .environmentObject(mqttManager)
-            }
-            .navigationDestination(isPresented: $showConnection){
-                ViewConnection(title: "Connection")
-                    .environmentObject(nvrManager)
-                    .environmentObject(mqttManager)
-            }
-            .navigationDestination(isPresented: $showLog){
-                ViewLog()
-            }
-            .navigationDestination(isPresented: $showCamera){
+        TabView {
+            NavigationStack {
                 ViewCamera(title: "Live Cameras")
             }
-            .navigationDestination(isPresented: $showNotificationManager){
-                //ViewNotificationManager(title: "Notification Manager")
-                ViewAPN(title: "Notification Manager")
+            .tabItem {
+                Label("Live", systemImage: "house")
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .navigationDestination(for: Cameras.self){ config in
+            .tag(0)
                 
-                ViewCameraDetails(text: "\(config.name.uppercased()) Camera Details", cameras: config)
+            NavigationStack {
+                ViewEventListHome()
             }
-            .navigationDestination(for: Cameras2.self){ config in
-                
-                ViewCameraDetails2(text: "\(config.name.uppercased()) Camera Details", cameras: config)
+            .tabItem {
+                Label("Events", systemImage: "bell")
             }
-            .navigationDestination(for: EndpointOptions.self){ eps in
-                
-                ViewEventDetail(text: convertDateTime(time: eps.frameTime!), container: eps, showButton: false, showClip: true)
-            }
-            .navigationDestination(for: String.self){ jsonObject in
-                
-                if let dataJson = jsonObject.data(using: .utf8) {
-                    let epsArray = try! JSONDecoder().decode([EndpointOptions].self, from: dataJson)
-                    ViewEventInformation( endPointOptionsArray: epsArray)
+            .tag(1)
+            
+            if developerModeIsOn {
+                NavigationStack {
+                    ViewLog()
                 }
+                .tabItem {
+                    Label("Log", systemImage: "note.text")
+                }
+                .tag(2)
             }
-            .navigationDestination(for: Int.self){ page in
-                ViewTest(title: "cow")
+
+            NavigationStack {
+                ViewSettings(title: "Settings")
             }
-            .sheet(isPresented: $showFilter) {
-                ViewFilter()
-                    .presentationDetents([.large])
+            .environmentObject(nvrManager)
+            .environmentObject(mqttManager)
+            .tabItem {
+                Label("Settings", systemImage: "gearshape.2")
             }
-            //added this 5/9
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbar {
-                if !isOnboarding {
-                    ToolbarItemGroup(placement: .bottomBar) {
+            .tag(3)
+        }
+        .task {
+            //Load Defaults for app
+            DispatchQueue.main.async {
+                let url = nvr.getUrl()
+                let urlString = url + "/api/config"
+                print(urlString)
+                cNVR.fetchNVRConfig(urlString: urlString ){ (data, error) in
+                    
+                    guard let data = data else { return }
+                    
+                    if developerModeIsOn {
+                        do {
+                            Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Info", text: "Entry")
+                            //if let responseString = String(data: data, encoding: .utf8) {
+                            if String(data: data, encoding: .utf8) != nil {
+                                //print("Raw response data: \(responseString)")
+                                //Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig", type: "Result", text: "\(responseString)")
+                            }
+                        }
+                    }
+                    
+                    do {
                         
-                        HStack{
-                            Label("Filter", systemImage: "calendar.day.timeline.leading")
-                                .labelStyle(VerticalLabelStyle(show: false))
-                                .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.45))
-                                .fontWeight(.regular)
-                                .foregroundColor(.gray)
-                                .onTapGesture(perform: {
-                                    showFilter.toggle()
-                                })
+                        //print("=1===============================================================================================")
+                        
+                        //FRIGATE 16+ reguires NVRConfigurationCall2
+                        //config.item = try JSONDecoder().decode(NVRConfigurationCall.self, from: data)
+                        config.item = try JSONDecoder().decode(NVRConfigurationCall2.self, from: data)
+                        
+                        
+                        //print("=2===============================================================================================")
+                        //print(config.item)
+                        //                        if let dataJson = jsonObject.data(using: .utf8) {
+                        //                            let epsArray = try! JSONDecoder().decode([EndpointOptions].self, from: dataJson)
+                        //                            ViewEventInformation( endPointOptionsArray: epsArray)
+                        //                        }
+                        
+                        filter2.setCameras(items: config.item.cameras)
+                        filter2.setObject(items: config.item.cameras)
+                        filter2.setZones(items: config.item.cameras)
+                        
+                        frigateVersion = config.item.version
+                        frigateAlertsRetain = config.item.record.alerts.retain.days
+                        frigateDetectionsRetain = config.item.record.detections.retain.days
+                        
+                        // Delete non-retained snapshots
+                        for (_, value) in config.item.cameras{
                             
-                            Spacer()
-                            
-                            Label("Cameras", systemImage: "web.camera")
-                                .labelStyle(VerticalLabelStyle(show: false))
-                                .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.45))
-                                .fontWeight(.regular)
-                                .foregroundColor(.gray)
-                                .onTapGesture(perform: {
-                                    showCamera.toggle()
-                                })
-                            
-                            if notificationModeIsOn {
-                                Spacer()
-                                Label("Notifications", systemImage: "app.badge")
-                                    .labelStyle(VerticalLabelStyle(show: false))
-                                    .foregroundStyle(nts.notificationPaused ? .orange : Color(red: 0.45, green: 0.45, blue: 0.45))
-                                    .fontWeight(.regular)
-                                    .foregroundColor(.gray)
-                                    .onTapGesture(perform: {
-                                        showNotificationManager.toggle()
-                                    })
+                            let daysBack = value.snapshots.retain.default
+                            let db:Int = Int(daysBack)
+                            let _ = EventStorage.shared.delete(daysBack:db, cameraName: value.name)
+                        }
+                        
+                    }catch (let err){
+                        
+                        //print("=3==========")
+                        print(err)
+                        
+                        Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 1001.1", type: "ERROR", text: "\(err)")
+                        
+                        do {
+                            if let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed ) as? [String: Any] {
+                                
+                                Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 2001.1", type: "Info", text: "\(json)")
                             }
+                        } catch(let err) {
                             
-                            if developerModeIsOn {
-                                Spacer()
-                                Label("NVR", systemImage: "arrow.triangle.2.circlepath.circle")
-                                    .labelStyle(VerticalLabelStyle(show: false))
-                                    .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.45))
-                                    .fontWeight(.regular)
-                                    .foregroundColor(.gray)
-                                    .onTapGesture(perform: {
-                                        //showNVR.toggle()
-                                        notificationManager2.newPage = 2
-                                        self.selection = 2
-                                    })
-                            }
-                            
-                            if developerModeIsOn {
-                                Spacer()
-                                Label("Log", systemImage: "note.text")
-                                    .labelStyle(VerticalLabelStyle(show: false))
-                                    .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.45))
-                                    .fontWeight(.regular)
-                                    .foregroundColor(.gray)
-                                    .onTapGesture(perform: {
-                                        showLog.toggle()
-                                    })
-                            }
-                            
-                            Spacer()
-                            
-                            Label("Settings", systemImage: "gearshape")
-                                .labelStyle(VerticalLabelStyle(show: false))
-                                .foregroundStyle(Color(red: 0.45, green: 0.45, blue: 0.45))
-                                .fontWeight(.regular)
-                                .foregroundColor(.gray)
-                                .onTapGesture(perform: {
-                                    showSettings.toggle()
-                                })
-                        }//hstack
+                            Log.shared().print(page: "ContentView", fn: "task::cnvr.fetchNVRConfig 2001.2", type: "ERROR", text: "\(err)")
+                        }
                     }
                 }
+                
+                //Load Events
+                cNVR.fetchEventsInBackground(urlString: nvr.getUrl(), backgroundFetchEventsEpochtime: backgroundFetchEventsEpochtime, epsType: "ctask" )
+                
             }
+        }
+//            .onReceive(notificationManager2.$newPage) {
+//                guard let notificationSelection = $0 else  { return }
+//                self.selection = notificationSelection
+//            }
+        .onChange(of: scenePhase) { _, newScenePhase in
+            DispatchQueue.main.async {
+                if newScenePhase == .active {
+                    cNVR.fetchEventsInBackground(urlString: nvr.getUrl(), backgroundFetchEventsEpochtime: backgroundFetchEventsEpochtime, epsType: "scenePhase")
+                }
+            }
+        }
+        .onAppear {
+            Task {
+                await sheduleBackgroundTask()
+            }
+            //check accesibilty to nvr
+            nvrManager.checkConnectionStatus(){data,error in
+                //do nothing
+            }
+            //TODO check if connection is disconnected first
+            //connect to mqtt broker
+            mqttManager.initializeMQTT()
+            mqttManager.connect()
+        }
+        .environmentObject(mqttManager)
+        .environmentObject(nvrManager)
+        .navigationDestination(isPresented: $showConnection){
+            ViewConnection(title: "Connection")
+                .environmentObject(nvrManager)
+                .environmentObject(mqttManager)
+        }
+        .navigationDestination(for: Cameras.self){ config in
+            ViewCameraDetails(text: "\(config.name.uppercased()) Camera Details", cameras: config)
+        }
+        .navigationDestination(for: Cameras2.self){ config in
+            ViewCameraDetails2(text: "\(config.name.uppercased()) Camera Details", cameras: config)
+        }
+        .navigationDestination(for: EndpointOptions.self){ eps in
+            ViewEventDetail(text: convertDateTime(time: eps.frameTime!), container: eps, showButton: false, showClip: true)
+        }
+        .navigationDestination(for: String.self){ jsonObject in
+            if let dataJson = jsonObject.data(using: .utf8) {
+                let epsArray = try! JSONDecoder().decode([EndpointOptions].self, from: dataJson)
+                ViewEventInformation( endPointOptionsArray: epsArray)
+            }
+        }
+        .navigationDestination(for: Int.self){ page in
+            ViewTest(title: "cow")
         }
     }
     

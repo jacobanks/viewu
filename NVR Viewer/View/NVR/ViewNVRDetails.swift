@@ -128,21 +128,7 @@ struct ViewNVRDetails: View {
             
         }
         .background(Color(UIColor.secondarySystemBackground)) //very light gray
-        .toolbar(.hidden, for: .bottomBar)
-        .toolbar {
-            ToolbarItemGroup(placement: .navigation) {
-                
-                Label("Back", systemImage: "chevron.backward")
-                    .labelStyle(HorizontalLabelStyle())
-                    .foregroundStyle(.blue)
-                    .onTapGesture(perform: {
-                        dismiss() // Manually dismiss the view
-                        notificationManager2.newPage = 0
-                    })
-            }
-        }
         .navigationBarTitle("NVR Configuration", displayMode: .inline)
-        .navigationBarBackButtonHidden(true) 
     }
     
 }

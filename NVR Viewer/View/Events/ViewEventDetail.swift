@@ -358,19 +358,6 @@ struct ViewEventDetail: View {
                 
                 
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .navigation) {
-                    
-                    if showButton {
-                        Label("Timeline", systemImage: "chevron.left")
-                            .labelStyle(HorizontalLabelStyle())
-                            .foregroundStyle(.blue)
-                            .onTapGesture(perform: {
-                                notificationManager2.newPage = 0
-                            })
-                    }
-                }
-            }
             .navigationBarTitle(text, displayMode: .inline)
         }
         .onReceive(orientationChanged) { _ in

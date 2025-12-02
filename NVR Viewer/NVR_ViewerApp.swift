@@ -42,7 +42,6 @@ struct NVR_ViewerApp: App {
         }
         .modelContainer(for: [ImageContainer.self]) 
         .backgroundTask(.appRefresh("viewu_refresh")) {
-  
             await cNVR.fetchEventsInBackground(urlString: nvr.getUrl(), backgroundFetchEventsEpochtime: backgroundFetchEventsEpochtime, epsType: "background" )
         }
         .onChange(of: phase) {  oldValue, newPhase in

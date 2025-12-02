@@ -36,9 +36,7 @@ struct ViewConnection: View {
         .containerRelativeFrame([.horizontal, .vertical])
         .background(mqttManager.isConnected() ? Color.green.opacity(0.2) : Color.pink.opacity(0.2))
         .navigationBarTitle(title, displayMode: .inline)
-        .scrollContentBackground(.hidden) 
-        .toolbarBackground(.primary, for: .navigationBar)
-        .toolbarBackground(.visible, for: .navigationBar)
+        .scrollContentBackground(.hidden)
     }
      
     private func initAndConnect() {

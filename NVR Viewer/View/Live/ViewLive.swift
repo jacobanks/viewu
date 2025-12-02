@@ -14,17 +14,14 @@ struct ViewLive: View {
     let container: EndpointOptions
     
     @State private var player = AVPlayer()
-    @State private var path = NavigationPath()
     
     //
     @EnvironmentObject private var notificationManager2: NotificationManager
-    @State var selection: Int = 0
     
-    init(text: String, container: EndpointOptions, player: AVPlayer = AVPlayer(), path: NavigationPath = NavigationPath(), showButton: Bool) {
+    init(text: String, container: EndpointOptions, player: AVPlayer = AVPlayer(), showButton: Bool) {
         self.text = text
         self.container = container
         self.player = player
-        self.path = path
     }
     
     var body: some View {
@@ -33,18 +30,6 @@ struct ViewLive: View {
  
                 ViewLiveLandscape(urlString: container.snapshot!, cameraName: container.cameraName! ,zoomIn: false)
                     .padding([.top], 147)  
-            }
-        } 
-        .toolbar {
-            ToolbarItemGroup(placement: .navigation) {
-                
-                Label("Timeline", systemImage: "chevron.left")
-                    .labelStyle(HorizontalLabelStyle())
-                    .foregroundStyle(.blue)
-                    .onTapGesture(perform: {
-                        self.selection = 0
-                        notificationManager2.newPage = 0
-                    })
             }
         }
         .navigationBarTitle(text, displayMode: .inline)

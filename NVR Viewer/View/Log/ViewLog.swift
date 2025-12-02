@@ -62,20 +62,7 @@ struct ViewLog: View {
             .frame(width: UIScreen.screenWidth, alignment: .topLeading)
         }
         .padding([.leading, .trailing], 5)
-        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight - 140, alignment: .topLeading)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss() // Manually dismiss the view
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("Back")
-                        }
-                    }
-                }
-            }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 

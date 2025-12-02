@@ -175,19 +175,6 @@ struct ViewCamera: View {
         .navigationBarTitle(title, displayMode: .inline)
         .toolbarBackground(.visible, for: .navigationBar)
         .scrollIndicators(.hidden)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss() // Manually dismiss the view
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("Back")
-                        }
-                    }
-                }
-            }
     }
     
     func verifyGo2RTCUrl(urlString: String) -> String {
