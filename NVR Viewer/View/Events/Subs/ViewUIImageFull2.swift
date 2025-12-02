@@ -15,10 +15,6 @@ struct ViewUIImageFull2: View {
     
     //Orientation Landscape/Portrait Mode
     @State var orientation = UIDevice.current.orientation
-    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
     
     //Pinch and Zoom
     @State private var currentScale: CGFloat = 1.0
@@ -72,12 +68,6 @@ struct ViewUIImageFull2: View {
                                         currentScale = 1.0
                                     }
                             )
-                        
-//                        WatermarkContentView()
-//                            .font(.system(size: 100))
-//                            .opacity(0.6)
-//                            .modifier(CardBackground2())
-                    
                     }
                 }
             }

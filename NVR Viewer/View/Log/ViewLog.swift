@@ -49,17 +49,17 @@ struct ViewLog: View {
                             .font(.caption)
                             .frame( maxWidth: .infinity, alignment: .topLeading) //changed from width
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     Text(row.text)
                         .font(.callout)
-                        .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
                         .textSelection(.enabled)
                     
                     Divider()
                 }
             }
-            .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .padding([.leading, .trailing], 5)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

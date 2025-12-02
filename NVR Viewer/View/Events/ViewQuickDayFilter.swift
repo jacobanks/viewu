@@ -10,7 +10,6 @@ import SwiftUI
 struct ViewQuickDayFilter: View {
  
     let fontSize: CGFloat = 25
-    let dateSpacer: CGFloat = (UIScreen.screenWidth-0)/4
     var days = [String]()
     var daysEpoch = [Double]()
     
@@ -67,7 +66,8 @@ struct ViewQuickDayFilter: View {
                             .font(.system(size: fontSize))
                             .fontWeight(.light)
                             .foregroundColor(.gray)
-                            .frame(width: dateSpacer, height: 20)
+                            .frame(maxWidth: .infinity, maxHeight: 20)
+                            .padding(16)
                             .onTapGesture {
                                 
                                 filter2.startDate = Date(timeIntervalSince1970: daysEpoch[index])

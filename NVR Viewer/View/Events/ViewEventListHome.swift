@@ -32,11 +32,7 @@ struct ViewEventListHome: View {
         @EnvironmentObject private var nvrManager: NVRConfig
         
         var body: some View {
-            
             VStack {
-                //Layout 1
-                //ViewLiveEvent()
-                
                 //History
                 ViewEventsHistory()
                 

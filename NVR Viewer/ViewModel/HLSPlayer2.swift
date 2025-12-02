@@ -35,7 +35,6 @@ struct HLSPlayer2: View {
                     .ignoresSafeArea()
                     VStack{
                         Webview(url: urlString + "/api/\(cameraName)?h=720") 
-                            //.modifier(CardBackground2())
                             .aspectRatio(16/9, contentMode: .fill)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .edgesIgnoringSafeArea(.all)
@@ -71,7 +70,7 @@ struct HLSPlayer2: View {
             .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
         }
         .background(menuBGColor)
-        .modifier( CardBackground2() )
+        .cardBackground(radius: .medium)
         .padding(.leading,10)
         .padding(.trailing,10)
         .padding(.bottom,15)
@@ -79,15 +78,7 @@ struct HLSPlayer2: View {
             ViewCameraHLSFullScreen(urlString: urlString, cameraName: cameraName)
         }
     }
-    
-    struct CardBackground2: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .cornerRadius(15)
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
-        }
-    }
-    
+
     struct CameraOverlay: View {
         let name: String
         let urlString: String

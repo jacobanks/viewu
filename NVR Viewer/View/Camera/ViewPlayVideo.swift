@@ -43,23 +43,7 @@ struct ViewPlayVideo: View {
             .frame(maxWidth: .infinity, alignment: .trailing)
             .background(Color(red: 0.153, green: 0.69, blue: 1))
         }
-        .modifier(CardBackground2())
-    }
-    
-    struct CardBackground2: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .cornerRadius(25)
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
-        }
-    }
-    
-    struct CardBackground3: ViewModifier {
-        func body(content: Content) -> some View {
-            content 
-                .clipShape(UnevenRoundedRectangle(bottomLeadingRadius: 15, bottomTrailingRadius: 15))
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
-        }
+        .cardBackground(radius: .large)
     }
 }
 

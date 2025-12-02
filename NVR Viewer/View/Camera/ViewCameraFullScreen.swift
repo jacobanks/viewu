@@ -45,7 +45,7 @@ struct ViewCameraFullScreen: View {
                     VlcPlayeyRTSP2(urlString: urlString, mediaPlayer: mediaPlayer)
                         .rotationEffect(.degrees(90))
                         .aspectRatio(16/9, contentMode: .fill)
-                        .frame(width: UIScreen.screenHeight , height: UIScreen.screenWidth )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .edgesIgnoringSafeArea(.all)
                         .onAppear(){
                             mediaPlayer.audio?.isMuted = false
@@ -60,7 +60,7 @@ struct ViewCameraFullScreen: View {
                     VlcPlayeyRTSP2(urlString: urlString, mediaPlayer: mediaPlayer)
                         .rotationEffect(.degrees(90))
                         .aspectRatio(16/9, contentMode: .fit)
-                        .frame(width: UIScreen.screenHeight, height: UIScreen.screenWidth + 22)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .edgesIgnoringSafeArea(.all)
                         .onAppear(){
                             mediaPlayer.audio?.isMuted = false

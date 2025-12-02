@@ -112,7 +112,7 @@ struct ViewFilter: View {
                     .buttonStyle(CustomPressEffectButtonStyle())
                     .scaleEffect(scale)
                     .animation(.linear(duration: 1), value: scale)
-                    .frame(width: UIScreen.screenWidth - 50, alignment: .trailing)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 }
             }
             .onDisappear(){

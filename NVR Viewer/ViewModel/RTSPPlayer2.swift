@@ -117,8 +117,6 @@ struct StreamRTSP2: View {
     let cBlue = Color(red: 0.153, green: 0.69, blue: 1)
     
     var body: some View {
-        return
-        
         VStack{
             
             ZStack{
@@ -141,8 +139,6 @@ struct StreamRTSP2: View {
                     VlcPlayeyRTSP2(urlString: urlString, mediaPlayer: mediaPlayer)
                         .padding(0)
                         .aspectRatio(16/9, contentMode: .fit)
-                    //.modifier( CardBackground2() )
-                    //.frame(width: UIScreen.screenWidth, height: (UIScreen.screenWidth * 9/16)-5)
                         .onAppear(){
                             //isLoading = false
                             mediaPlayer.audio?.isMuted = flagMute
@@ -151,8 +147,6 @@ struct StreamRTSP2: View {
                         .onDisappear(){
                             mediaPlayer.stop()
                         }
-                    //.overlay(CameraOverlay(name: cameraName, urlString: urlString, mediaPlayer: mediaPlayer), alignment: .bottomTrailing)
-                    
                 }
                 .background(Color.gray.opacity(0.125))
                 
@@ -199,7 +193,7 @@ struct StreamRTSP2: View {
             }
         }
         .background(menuBGColor)
-        .modifier( CardBackground2() )
+        .cardBackground(radius: .medium)
         .padding(.leading,10)
         .padding(.trailing,10)
         .padding(.bottom,10)
@@ -207,15 +201,7 @@ struct StreamRTSP2: View {
             ViewCameraFullScreen(urlString: urlString, cameraName: cameraName)
         }
     }
-    
-    struct CardBackground2: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .cornerRadius(15)
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
-        }
-    }
-    
+
     struct CameraOverlay: View {
         let name: String
         let urlString: String

@@ -18,35 +18,13 @@ struct ViewEventCard: View {
     let fontSizeDate: CGFloat = 20
     let fontSizeLabel: CGFloat = 13
     
-    //
     @State private var zoomIn: Bool = false
     var frigatePlusOn: Bool = UserDefaults.standard.bool(forKey: "frigatePlusOn")
     
     init(frameTime: Double) {
         containers = EventStorage.shared.getEventByFrameTime(frameTime3: frameTime )
     }
-    
-    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    
-    func setWidth() -> CGFloat{
-        
-        if idiom == .pad {
-            return 200
-        } else {
-            return 110
-        }
-    }
-    func setHeight() -> CGFloat {
-        
-        //var height = UIScreen.screenHeight
-        
-        if idiom == .pad {
-            return (setWidth() * 16/9)
-        } else {
-            return 166
-        }
-    }
-    
+
     struct CustomPressEffectButtonStyle: ButtonStyle {
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
@@ -58,126 +36,121 @@ struct ViewEventCard: View {
     }
     
     var body: some View {
-        
         ForEach( 0..<containers.count, id: \.self){ index in
-            
             VStack{
-                
-                HStack{
-                    
-                   // GeometryReader { geometry in
-                        VStack(alignment: .leading, spacing: 2) {
-                            
-                            //Time
-                            NavigationLink(convertTime(time: containers[index].frameTime!), value: containers[index])
-                                .font(.system(size: fontSizeDate))
-                                .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
-                                //.foregroundStyle(Color.orange)
-                                .frame(width: setWidth(), alignment: .topLeading)
-                                .padding(.top,5)
-                            
-                            //Date
-                            Text(convertDate(time: containers[index].frameTime!))
-                                .foregroundColor(.gray)
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        
+                        //Time
+                        NavigationLink(convertTime(time: containers[index].frameTime!), value: containers[index])
+                            .font(.system(size: fontSizeDate))
+                            .foregroundStyle(Color(red: 0.35, green: 0.35, blue: 0.35))
+                            //.foregroundStyle(Color.orange)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .padding(.top,5)
+                        
+                        //Date
+                        Text(convertDate(time: containers[index].frameTime!))
+                            .foregroundColor(.gray)
+                            .font(.system(size: fontSizeLabel))
+                            .fontWeight(.light)
+                        
+                        //Label
+                        Text("\(containers[index].label!)")
+                            .font(.system(size: fontSizeLabel))
+                            .fontWeight(.light)
+                            .foregroundColor(.gray)
+                        
+                        if(containers[index].sublabel! != ""){
+                            Text("\(containers[index].sublabel!)")
                                 .font(.system(size: fontSizeLabel))
-                                .fontWeight(.light)
-                            
-                            //Label
-                            Text("\(containers[index].label!)")
-                                .font(.system(size: fontSizeLabel))
-                                .fontWeight(.light)
+                                .fontWeight(.thin)
                                 .foregroundColor(.gray)
-                            
-                            if(containers[index].sublabel! != ""){
-                                Text("\(containers[index].sublabel!)")
-                                    .font(.system(size: fontSizeLabel))
-                                    .fontWeight(.thin)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            if developerModeIsOn {
-                                Text("\(containers[index].type!)")
-                                    .font(.system(size: fontSizeLabel))
-                                    .fontWeight(.thin)
-                                    .foregroundColor(.gray)
-                            }
-                            
-                            //Hide this view for now - i dont think users need to see this information
-                            //EnteredZones(zones: containers[index].enteredZones!)
-                            
-                            Spacer()
-                             
-                            if !containers[index].frigatePlus!{
-                                if frigatePlusOn {
-                                    Button( action: {
+                        }
+                        
+                        if developerModeIsOn {
+                            Text("\(containers[index].type!)")
+                                .font(.system(size: fontSizeLabel))
+                                .fontWeight(.thin)
+                                .foregroundColor(.gray)
+                        }
+                        
+                        //Hide this view for now - i dont think users need to see this information
+                        //EnteredZones(zones: containers[index].enteredZones!)
+                        
+                        Spacer()
+                         
+                        if !containers[index].frigatePlus!{
+                            if frigatePlusOn {
+                                Button( action: {
+                                    
+                                    containers[index].frigatePlus!.toggle()
+                                    
+                                    let url = nvr.getUrl()
+                                    let urlString = url + "/api/events/\(containers[index].id!)/plus"
+                                    cNVR.postImageToFrigatePlus(urlString: urlString, eventId: containers[index].id! ){ (data, error) in
                                         
-                                        containers[index].frigatePlus!.toggle()
+                                        guard let data = data else { return }
                                         
-                                        let url = nvr.getUrl()
-                                        let urlString = url + "/api/events/\(containers[index].id!)/plus"
-                                        cNVR.postImageToFrigatePlus(urlString: urlString, eventId: containers[index].id! ){ (data, error) in
-                                            
-                                            guard let data = data else { return }
-                                            
-                                            do {
-                                                if let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed ) as? [String: Any] {
-                                                    
-                                                    if let res = json["success"] as? Int {
-                                                        print(res)
-                                                        if res == 1 {
+                                        do {
+                                            if let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed ) as? [String: Any] {
+                                                
+                                                if let res = json["success"] as? Int {
+                                                    print(res)
+                                                    if res == 1 {
+                                                        
+                                                        EventStorage.shared.updateFrigatePlus(id: containers[index].id!, value: true)
+                                                        EventStorage.shared.readAll3(completion: { res in
+                                                            //self.epsSup3 = res!
+                                                            epsSuper.list3 = res!
+                                                            return
+                                                        })
+                                                    } else {
+                                                        if let msg = json["message"] as? String {
+                                                            print(msg)
                                                             
-                                                            EventStorage.shared.updateFrigatePlus(id: containers[index].id!, value: true)
-                                                            EventStorage.shared.readAll3(completion: { res in
-                                                                //self.epsSup3 = res!
-                                                                epsSuper.list3 = res!
-                                                                return
-                                                            })
-                                                        } else {
-                                                            if let msg = json["message"] as? String {
-                                                                print(msg)
-                                                                
-                                                                if (msg == "PLUS_API_KEY environment variable is not set" ){
-                                                                    containers[index].frigatePlus!.toggle()
-                                                                    EventStorage.shared.updateFrigatePlus(id: containers[index].id!, value: false)
-                                                                }
+                                                            if (msg == "PLUS_API_KEY environment variable is not set" ){
+                                                                containers[index].frigatePlus!.toggle()
+                                                                EventStorage.shared.updateFrigatePlus(id: containers[index].id!, value: false)
                                                             }
                                                         }
                                                     }
                                                 }
-                                            } catch(let error) {
-                                                Log.shared().print(page: "ViewEventCard", fn: "button", type: "ERROR", text: "\(error)")
-                                                print(error)
                                             }
+                                        } catch(let error) {
+                                            Log.shared().print(page: "ViewEventCard", fn: "button", type: "ERROR", text: "\(error)")
+                                            print(error)
                                         }
-                                        return
-                                    } ){
-                                        Text("Frigate+")
-                                            .padding(1)
                                     }
-                                    //.buttonStyle(.bordered)
-                                    .buttonStyle(CustomPressEffectButtonStyle())
-                                    .tint(Color(white: 0.58))
-                                    .scaleEffect(scale)
-                                    .animation(.linear(duration: 1), value: scale)
-                                    .frame( height: 20, alignment: .topLeading)
-                                    //.padding(.bottom, 10)
-                                    .padding(EdgeInsets(top: 5, leading: 0, bottom: 20, trailing: 0))
+                                    return
+                                } ){
+                                    Text("Frigate+")
+                                        .padding(1)
                                 }
+                                //.buttonStyle(.bordered)
+                                .buttonStyle(CustomPressEffectButtonStyle())
+                                .tint(Color(white: 0.58))
+                                .scaleEffect(scale)
+                                .animation(.linear(duration: 1), value: scale)
+                                .frame( height: 20, alignment: .topLeading)
+                                //.padding(.bottom, 10)
+                                .padding(EdgeInsets(top: 5, leading: 0, bottom: 20, trailing: 0))
                             }
-                            
-                            if developerModeIsOn {
-                                Text(containers[index].transportType!)
-                                    .font(.system(size: fontSizeLabel))
-                                    .fontWeight(.thin)
-                                    .foregroundColor(.gray)
-                                    .frame(width: setWidth(), alignment: .bottomLeading)
-                            }
-                            
                         }
-                        .frame(width: setWidth() , height: setHeight(), alignment: .leading) //110
- 
-                        ViewEventImage(urlString: containers[index].snapshot!, frameTime: containers[index].frameTime!, frigatePlus: containers[index].frigatePlus!, widthG: 302, heightG: 180)
-                            .modifier(CardBackground())
+                        
+                        if developerModeIsOn {
+                            Text(containers[index].transportType!)
+                                .font(.system(size: fontSizeLabel))
+                                .fontWeight(.thin)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                        }
+                        
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading) //110
+
+                    ViewEventImage(urlString: containers[index].snapshot!, frameTime: containers[index].frameTime!, frigatePlus: containers[index].frigatePlus!, widthG: 302, heightG: 180)
+                        .cardBackground(radius: .small)
                 }
                 
                 VStack{
@@ -188,7 +161,7 @@ struct ViewEventCard: View {
                             .textSelection(.enabled)
                     }
                 }
-                .frame(width: UIScreen.screenWidth-20, alignment: .bottomLeading)
+                .frame(maxWidth: .infinity, alignment: .bottomLeading)
             }
         }
         .onDelete{ indexes in

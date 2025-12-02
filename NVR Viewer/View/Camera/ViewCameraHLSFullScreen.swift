@@ -30,14 +30,14 @@ struct ViewCameraHLSFullScreen: View {
                 Webview(url: urlString + "/api/\(cameraName)?h=480")
                     .rotationEffect(.degrees(90))
                     .aspectRatio(16/9, contentMode: .fill)
-                    .frame(width: UIScreen.screenHeight, height: UIScreen.screenWidth )
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     //.edgesIgnoringSafeArea(.all)
                     .overlay(CameraOverlay(name: cameraName ), alignment: .bottomTrailing) 
             } else {
                 Webview(url: urlString + "/api/\(cameraName)?h=480")
                     .rotationEffect(.degrees(90))
                     .aspectRatio(16/9, contentMode: .fit)
-                    .frame(width: UIScreen.screenHeight, height: UIScreen.screenWidth)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .edgesIgnoringSafeArea(.all)
                     .overlay(CameraOverlay(name: cameraName ), alignment: .bottomTrailing)
             }

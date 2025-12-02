@@ -48,53 +48,53 @@ struct ViewNVRDetails: View {
             Section{
                 HStack{
                     Text("ClientID")
-                        .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 40)
                     Text("\(config.item.mqtt.client_id)")
                         .frame( alignment: .leading)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: UIScreen.screenWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack{
                     Text("Host")
-                        .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 40)
                     Text("\(config.item.mqtt.host)")
                         .frame( alignment: .leading)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: UIScreen.screenWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack{
                     Text("Port")
-                        .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 40)
                     Text("\(String(config.item.mqtt.port))")
                         .frame( alignment: .leading)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: UIScreen.screenWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack{
                     Text("Topic")
-                        .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 40)
                     Text("\(config.item.mqtt.topic_prefix)")
                         .frame( alignment: .leading)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: UIScreen.screenWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack{
                     Text("Interval2")
-                        .frame(width:UIScreen.screenWidth*widthMultiplier, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.leading, 40)
                     Text("\(config.item.mqtt.stats_interval)")
                         .frame( alignment: .leading)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: UIScreen.screenWidth, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 
             } header: {
                 Text("MQTT")
@@ -108,7 +108,7 @@ struct ViewNVRDetails: View {
                     ForEach(Array(config.item.go2rtc.streams!.keys ).sorted(by: {$0 < $1}), id: \.self) { value in
                       if !value.isEmpty {
                         Text("\(value)")
-                            .frame(width:UIScreen.screenWidth, alignment: .leading)
+                              .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.leading, 75)
   
                             ForEach(config.item.go2rtc.streams![value]!, id: \.self) { item in
@@ -117,7 +117,7 @@ struct ViewNVRDetails: View {
                                         .textSelection(.enabled)
                                         .foregroundStyle(.secondary)
                                         .padding(.leading, 0)
-                                        .frame(width:UIScreen.screenWidth, alignment: .leading)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
                             }
                         }

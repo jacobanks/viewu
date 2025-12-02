@@ -72,7 +72,8 @@ struct ViewAPN: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                 Spacer()
             }
-            .frame(width: UIScreen.screenWidth, height: 100, alignment: .topLeading)
+            .frame(maxWidth: .infinity)
+            .frame(height: 100, alignment: .topLeading)
             .background(.red.opacity(0.8))
         }
         
@@ -84,7 +85,8 @@ struct ViewAPN: View {
                     .font(.largeTitle)
                     .foregroundStyle(Color(red: 0.25, green: 0.25, blue: 0.25))
             }
-            .frame(width: UIScreen.screenWidth, height: 100, alignment: .topLeading)
+            .frame(maxWidth: .infinity)
+            .frame(height: 100, alignment: .topLeading)
             .background(.red.opacity(0.75))
         }
         
@@ -116,7 +118,6 @@ struct ViewAPN: View {
                         .buttonStyle(CustomPressEffectButtonStyle())
                         .scaleEffect(scale)
                         .animation(.linear(duration: 1), value: scale)
-                        //.frame(width: UIScreen.screenWidth-50, alignment: .trailing)
                         .frame(width: geomtry.size.width - 50, alignment: .trailing)
                         
                     } header: {
@@ -155,7 +156,6 @@ struct ViewAPN: View {
                         .buttonStyle(CustomPressEffectButtonStyle())
                         .scaleEffect(scale)
                         .animation(.linear(duration: 1), value: scale)
-                        //.frame(width: UIScreen.screenWidth-50, alignment: .trailing)
                         .frame(width: geomtry.size.width - 50, alignment: .trailing)
                         
                     } header: {
@@ -208,7 +208,6 @@ struct ViewAPN: View {
                             .buttonStyle(CustomPressEffectButtonStyle())
                             .scaleEffect(scale)
                             .animation(.linear(duration: 1), value: scale)
-                            //.frame(width: UIScreen.screenWidth-50, alignment: .trailing)
                             .frame(width: geomtry.size.width - 50, alignment: .trailing)
                             
                         }
@@ -272,7 +271,6 @@ struct ViewAPN: View {
         var flag: Bool
         var body: some View {
             Image(systemName: "circle.fill")
-                //.frame(width: UIScreen.screenWidth + offset, alignment: .trailing)
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .foregroundStyle( flag ? .green : .red)
                 .font(.system(size: 8))
@@ -307,7 +305,7 @@ struct ViewAPN: View {
                 Spacer()
                 
             }
-            .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight, alignment: .topLeading)
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .background(.white)
             .ignoresSafeArea()
         }
@@ -360,7 +358,7 @@ struct PopupMiddle: View {
             Spacer()
             
         }
-        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight, alignment: .topLeading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(.gray).opacity(0.9)
         .ignoresSafeArea()
     }
@@ -617,7 +615,6 @@ struct ViewNotificationManager: View, Hashable, Equatable {
                 .buttonStyle(CustomPressEffectButtonStyle())
                 .scaleEffect(scale)
                 .animation(.linear(duration: 1), value: scale)
-                //.frame(width: UIScreen.screenWidth-50, alignment: .trailing)
                 .frame(width: geometry.size.width+5, alignment: .trailing)
             }
             

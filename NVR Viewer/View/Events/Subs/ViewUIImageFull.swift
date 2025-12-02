@@ -17,13 +17,6 @@ struct ViewUIImageFull: View{
     let cBlue = Color(red: 0.153, green: 0.69, blue: 1)
     let menuTextColor = Color.white
     
-    @State var orientation = UIDevice.current.orientation
-    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
-    
     @State private var showingAlert = false
     
     //Full Screen
@@ -77,7 +70,7 @@ struct ViewUIImageFull: View{
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .background(cBlue.opacity(0.6))
                 }
-                .modifier( CardBackground2() )
+                .cardBackground(radius: .large)
                 .frame(maxWidth: .infinity)
             } else {
                 //Dummy Space
@@ -107,13 +100,38 @@ struct ViewUIImageFull: View{
             ViewUIImageFull2(urlString: urlString) 
         }
     }
-    
-    
-    struct CardBackground2: ViewModifier {
-        func body(content: Content) -> some View {
-            content
-                .cornerRadius(25)
-                .shadow(color: Color.black.opacity(0.2), radius: 4)
+
+    class ImageSaver: NSObject {
+        func saveToPhotoLibrary(_ image: UIImage) {
+            // This function asks for permission and saves the image
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveCompleted), nil)
+        }
+        
+        @objc func saveCompleted(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer) {
+            if let error = error {
+                // Handle the error (e.g., user denied permission)
+                print("Save error: \(error.localizedDescription)")
+            } else {
+                // Image saved successfully
+                print("Image saved successfully!")
+            }
+        }
+    }
+
+    private func downloadImage(from urlString: String) async -> UIImage? {
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return nil
+        }
+        
+        do {
+            // Asynchronously download the data
+            let (data, _) = try await URLSession.shared.data(from: url)
+            // Create a UIImage from the downloaded data
+            return UIImage(data: data)
+        } catch {
+            print("Error downloading image: \(error.localizedDescription)")
+            return nil
         }
     }
 }

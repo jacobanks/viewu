@@ -9,10 +9,8 @@ import Foundation
 import SwiftUI
 import UIKit
 
-extension UIImage
-{
-    func scale(newWidth: CGFloat) -> UIImage
-    {
+extension UIImage {
+    func scale(newWidth: CGFloat) -> UIImage {
         guard self.size.width != newWidth else{return self}
         
         let scaleFactor = newWidth / self.size.width
@@ -28,31 +26,26 @@ extension UIImage
         return newImage ?? self
     }
 }
-extension UIScreen{
-   static let screenWidth = UIScreen.main.bounds.size.width
-   static let screenHeight = UIScreen.main.bounds.size.height
-   static let screenSize = UIScreen.main.bounds.size
+
+enum CardRadius: CGFloat {
+    case small = 5
+    case medium = 15
+    case large = 25
 }
 
-struct SquareBackground: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .cornerRadius(0)
-            .shadow(color: Color.black.opacity(0.2), radius: 4)
-    }
-}
+private struct CardBackground: ViewModifier {
+    let radius: CardRadius
 
-struct CardBackground: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .cornerRadius(5)
+            .cornerRadius(radius.rawValue)
             .shadow(color: Color.black.opacity(0.2), radius: 4)
     }
 }
   
 extension View {
-    func cardBackground() -> some View {
-        modifier(CardBackground())
+    func cardBackground(radius: CardRadius) -> some View {
+        modifier(CardBackground(radius: radius))
     }
 }
 

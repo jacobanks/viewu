@@ -24,40 +24,8 @@ struct ViewEventImage: View{
     @State var data: Data?
     @State private var zoomIn: Bool = false
     @ObservedObject var epsSuper = EndpointOptionsSuper.shared()
-    
-    private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-    @State var orientation = UIDevice.current.orientation
-    let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-        .makeConnectable()
-        .autoconnect()
-    
-    func setWidth() -> CGFloat{
-        
-        if idiom == .pad {
-            var width = UIScreen.screenWidth
-            width = width - 200
-            
-            return width
-        } else {
-            let width = UIScreen.screenWidth
-            return width - 110
-            //return 260
-        }
-    }
-    
-    func setHeight() -> CGFloat {
-        
-        //var height = UIScreen.screenHeight
-        
-        if idiom == .pad {
-            return (setWidth() * 9/16)
-        } else {
-            return 166
-        }
-    }
-    
+
     var body: some View {
- 
         SubView(urlString: urlString, frameTime: frameTime, widthGap: widthG, heightGap: heightG)
             .overlay(ImageOverlay(frigatePlus: frigatePlus), alignment: .bottomTrailing)
     }
@@ -76,12 +44,6 @@ struct ViewEventImage: View{
         @State private var zoomIn: Bool = false
         @ObservedObject var epsSuper = EndpointOptionsSuper.shared()
         
-        private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
-        @State var orientation = UIDevice.current.orientation
-        let orientationChanged = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-            .makeConnectable()
-            .autoconnect()
-        
         @State private var currentScale: CGFloat = 1.0
         @State private var finalScale: CGFloat = 1.0
         
@@ -90,17 +52,10 @@ struct ViewEventImage: View{
             if let data = data, let uiimage = UIImage(data: data){
                 
                 GeometryReader { geometry in
-//                    Image(uiImage: uiimage)
-//                        .resizable()
-//                        .scaledToFill()
-//                        .aspectRatio( contentMode: .fill)
-//                        .frame(width: max(geometry.size.width, widthGap), height: max(geometry.size.height, heightGap))
-//                        .modifier(CardBackground2())
-                    
                     Image(uiImage: uiimage)
                         .resizable()
                         .frame(width: max(geometry.size.width, widthGap), height: max(geometry.size.height, heightGap))
-                        .modifier(CardBackground2())
+                        .cardBackground(radius: .large)
                         .padding(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
                         .aspectRatio( contentMode: .fill)
                         .scaledToFill()
@@ -125,7 +80,7 @@ struct ViewEventImage: View{
                 Text("")
                     .aspectRatio(contentMode: /*@START_MENU_TOKEN@*/.fill/*@END_MENU_TOKEN@*/)
                     .frame(width: 250,height: 150)
-                    .modifier(CardBackground2())
+                    .cardBackground(radius: .large)
                     .onAppear{
                         
                         cNVR.fetchImage(urlString: urlString){ (data, error) in
@@ -174,13 +129,5 @@ struct ViewEventImage: View{
                 }
             }
         }
-    }
-}
-
-struct CardBackground2: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .cornerRadius(25)
-            .shadow(color: Color.black.opacity(0.2), radius: 4)
     }
 }
