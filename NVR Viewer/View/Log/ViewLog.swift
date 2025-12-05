@@ -7,35 +7,18 @@
 
 import SwiftUI
 
-struct User: Identifiable {
-    let id: Int
-    var name: String
-    var score: Int
-    var page: String
-}
-
 struct ViewLog: View {
-    
     var list: [LogItem] = []
-    
-    @State private var users = [
-        User(id: 1, name: "Taylor Swift", score: 95, page: "MQTTSTATE"),
-        User(id: 2, name: "Justin Bieber", score: 80, page: "ContentView"),
-        User(id: 3, name: "Adele Adkins", score: 85, page: "EventStorage")
-    ]
-    
-    //Use the dismiss action
-    @Environment(\.dismiss) var dismiss
-    
+
     init() {
         self.list = Log.shared().getList()
     }
+
     var body: some View {
  
         VStack{
             ScrollView{
                 ForEach(list, id: \.self) { row in
-                    
                     HStack{
                         Text(row.type)
                             .font(.caption)
@@ -49,33 +32,20 @@ struct ViewLog: View {
                             .font(.caption)
                             .frame( maxWidth: .infinity, alignment: .topLeading) //changed from width
                     }
-                    .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     Text(row.text)
                         .font(.callout)
-                        .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
                         .textSelection(.enabled)
                     
                     Divider()
                 }
             }
-            .frame(width: UIScreen.screenWidth, alignment: .topLeading)
+            .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .padding([.leading, .trailing], 5)
-        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight - 140, alignment: .topLeading)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss() // Manually dismiss the view
-                    }) {
-                        HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("Back")
-                        }
-                    }
-                }
-            }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
 }
 

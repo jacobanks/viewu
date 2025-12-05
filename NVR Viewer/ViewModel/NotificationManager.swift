@@ -9,12 +9,9 @@ import Foundation
 import UserNotifications
 
 @MainActor
-class NotificationManager: ObservableObject{
+class NotificationManager: ObservableObject {
     
     @Published var newPage: Int?
-    @Published var frameTime: Double?
-    @Published var eps: EndpointOptions?
-    
     @Published private(set) var hasPermission = false
     
     init() {

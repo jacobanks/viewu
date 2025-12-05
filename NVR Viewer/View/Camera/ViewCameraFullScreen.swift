@@ -6,144 +6,57 @@
 //
 
 import Foundation
-import MobileVLCKit
+import VLCKitSPM
 import SwiftUI
 
 struct ViewCameraFullScreen: View {
     
     let urlString: String 
     let cameraName: String
-    @State var mediaPlayer : VLCMediaPlayer = VLCMediaPlayer()
+    @State var mediaPlayer: VLCMediaPlayer = VLCMediaPlayer()
     let cBlue = Color(red: 0.153, green: 0.69, blue: 1)
     let menuTextColor = Color.white
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.verticalSizeClass) var verticalSizeClass
- 
+    @State var isMuted: Bool = false
+
     var body: some View {
-        
-        
-        VStack{
-            
-            ZStack{
-                
+        VStack {
+            ZStack {
                 LinearGradient(
                     colors: [.orange, cBlue, .orange],
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
-                //.ignoresSafeArea()
-                //.edgesIgnoringSafeArea(.bottom)
                 
-                Text("Loading: \(urlString)")
-                    .rotationEffect(.degrees(90))
-                    .labelStyle(VerticalLabelStyle(show: false))
-                    .foregroundStyle(menuTextColor)
-                
-                if horizontalSizeClass == .regular && verticalSizeClass == .regular {
-                    // UI optimized for a regular-sized screen (typical of iPad in most orientations)
-                    VlcPlayeyRTSP2(urlString: urlString, mediaPlayer: mediaPlayer)
-                        .rotationEffect(.degrees(90))
-                        .aspectRatio(16/9, contentMode: .fill)
-                        .frame(width: UIScreen.screenHeight , height: UIScreen.screenWidth )
-                        .edgesIgnoringSafeArea(.all)
-                        .onAppear(){
-                            mediaPlayer.audio?.isMuted = false
-                            mediaPlayer.play()
-                        }
-                        .onDisappear(){
-                            mediaPlayer.stop()
-                        }
-                        .overlay(CameraOverlay(name: cameraName, mediaPlayer: mediaPlayer), alignment: .bottomTrailing)
-                } else {
-                    // UI optimized for compact-sized screens (iPhone, or iPad in certain multitasking modes)
-                    VlcPlayeyRTSP2(urlString: urlString, mediaPlayer: mediaPlayer)
-                        .rotationEffect(.degrees(90))
-                        .aspectRatio(16/9, contentMode: .fit)
-                        .frame(width: UIScreen.screenHeight, height: UIScreen.screenWidth + 22)
-                        .edgesIgnoringSafeArea(.all)
-                        .onAppear(){
-                            mediaPlayer.audio?.isMuted = false
-                            mediaPlayer.play()
-                        }
-                        .onDisappear(){
-                            mediaPlayer.stop()
-                        }
-                        .overlay(CameraOverlay(name: cameraName, mediaPlayer: mediaPlayer), alignment: .bottomTrailing)
+                ProgressView {
+                    Text("Loading: \(urlString)")
+                        .labelStyle(VerticalLabelStyle(show: false))
+                        .foregroundStyle(menuTextColor)
                 }
-    
-                 
+
+                VLCPlayerRepresentable(rtspURL: URL(string: urlString)!, mediaPlayer: mediaPlayer)
+                    .aspectRatio(16/9, contentMode: .fit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .onAppear(){
+                        mediaPlayer.audio?.isMuted = false
+                        isMuted = mediaPlayer.audio?.isMuted ?? true
+                        mediaPlayer.play()
+                    }
+                    .onDisappear(){
+                        mediaPlayer.stop()
+                    }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-        }
-    }
-    
-    struct CameraOverlay: View {
-        let name: String
-        @State var flagMute = false
-        @State var showCameras = false;
-        @State var mediaPlayer : VLCMediaPlayer
-        
-        var body: some View {
-            
-            //arrow.down.forward.topleading.rectangle
-            HStack{
-                
-                VStack{
-//                    HStack{
-//                        Button("", systemImage: "arrow.down.forward.topleading.rectangle"){
-//                            showCameras.toggle()
-//                        }
-//                        .padding([.leading], 85)
-//                        .frame(maxHeight: .infinity, alignment: .bottomTrailing)
-//                        .foregroundColor(.white)
-//                        .font(.title)
-//                    }
-//                    .frame(maxWidth: .infinity, maxHeight: 40, alignment: .topLeading)
-                    
-                    Spacer()
-                    
-                    HStack{
-                        Button(name){
-                            flagMute.toggle()
-                            mediaPlayer.audio?.isMuted = flagMute
-                            print("button1")
-                        }
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-                        .padding(.bottom, 10)
-                        .fontWeight(.bold)
-                        
-                        Button("", systemImage: flagMute ? "speaker.slash" : "speaker"){
-                            flagMute.toggle()
-                            mediaPlayer.audio?.isMuted = flagMute
-                        }
-                        .padding([.trailing], 80) //40 was good
-                        .padding(.bottom, 10)
-                        .frame(maxHeight: .infinity, alignment: .bottomTrailing)
-                        .foregroundColor(.white)
-                        .font(.title)
-                        .fontWeight(.bold)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+            .edgesIgnoringSafeArea(.all)
+            .toolbar {
+                Button {
+                    isMuted.toggle()
+                    mediaPlayer.audio?.isMuted.toggle()
+                } label: {
+                    Label("", systemImage: isMuted ? "speaker.slash" : "speaker")
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                 
-            }
-            .onTapGesture{
-                flagMute.toggle()
-                mediaPlayer.audio?.isMuted = flagMute //11/12/25 Check this
-            }
-            .background(Color(.init(white: 10, alpha: 0))) 
-            .rotationEffect(.degrees(90))
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-            .navigationDestination(isPresented: $showCameras){
-                ViewCamera(title: "Live Cameras")
             }
         }
+        .toolbar(.hidden, for: .tabBar)
     }
-    
 }
  

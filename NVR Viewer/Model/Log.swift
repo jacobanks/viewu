@@ -22,8 +22,7 @@ class Log: ObservableObject {
         }
     }
     
-    func print(page: String, fn: String, type: String, text: String) {
-        
+    func print(page: String = #file, fn: String = #function, type: String, text: String) {
         let item = LogItem(id: UUID(), page: page, fn: fn, text: text, type: type)
         list.append(item)
     }

@@ -24,8 +24,8 @@ class EventFilter: ObservableObject{
     @Published var selectedZone: String = "all"
     @Published var zones = ["all"]
     
-    @Published var selectedType: String = "all"
-    @Published var types = ["all", "new", "end", "update", "background", "ctask", "scenePhase"]
+    @Published var selectedType: String = "alerts"
+    @Published var types = ["alerts", "detections"]
      
     //Add 1 future day so the app can search til midnight of today
     @Published var endDate = Calendar.current.date(byAdding: DateComponents(day: 1), to: Date()) ?? Date()

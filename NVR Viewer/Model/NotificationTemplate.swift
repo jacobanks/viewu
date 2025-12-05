@@ -103,12 +103,6 @@ class NotificationTemplate: ObservableObject{
     @Published var currentZones: [ItemState] = []
     @Published var enteredZones: [ItemState] = []
     @Published var types: [ItemState] = []
-    
-    let _new = NotificationTemplateString()
-    
-    func new() -> NotificationTemplateString {
-        return _new
-    }
  
     func setCameras(items: [String : Cameras2]){
         

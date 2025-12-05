@@ -81,7 +81,7 @@ struct ViewTipsNotificationManager: View {
             .background(Color(.white))
             .cornerRadius(15)
             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-            .frame(width: UIScreen.screenWidth - 30 )
+            .frame(maxWidth: .infinity)
             //.background(Color.white)
         }
         else {
@@ -178,7 +178,7 @@ struct ViewTipsNotificationDomain: View {
             .background(Color(.white))
             .cornerRadius(15)
             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-            .frame(width: UIScreen.screenWidth - 30 )
+            .frame(maxWidth: .infinity)
             //.background(Color.white)
         }
         else {
@@ -275,7 +275,7 @@ struct ViewTipsNotificationTemplate: View {
             .background(Color(.white))
             .cornerRadius(15)
             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-            .frame(width: UIScreen.screenWidth - 30 )
+            .frame(maxWidth: .infinity)
             //.background(Color.white)
         }
         else {
@@ -372,7 +372,7 @@ struct ViewTipsSettingsNVR: View {
             .background(Color(.white))
             .cornerRadius(15)
             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-            .frame(width: UIScreen.screenWidth - 30 )
+            .frame(maxWidth: .infinity)
             //.background(Color.white)
         }
         else {
@@ -469,7 +469,7 @@ struct ViewTipsSettingsPairDevie: View {
             .background(Color(.white))
             .cornerRadius(15)
             .padding(EdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5))
-            .frame(width: UIScreen.screenWidth - 30 )
+            .frame(maxWidth: .infinity)
             //.background(Color.white)
         }
         else {
