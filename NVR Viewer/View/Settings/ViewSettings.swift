@@ -12,12 +12,10 @@ struct ViewSettings: View {
     
     let title: String
     
-    @StateObject var notificationManager = NotificationManager()
-    
-    var currentAppState = MQTTAppState()
-     
+    @EnvironmentObject private var notificationManager: NotificationManager
+    @EnvironmentObject private var config: NVRConfiguration
+
     @StateObject var mqttManager = MQTTManager.shared()
-    @StateObject var nvrManager = NVRConfig.shared()
     
     @State private var scale = 1.0
     @State private var showingAlert = false
@@ -31,8 +29,6 @@ struct ViewSettings: View {
     @AppStorage("notificationModeIsOn") private var notificationModeIsOn: Bool = false
     @AppStorage("frigatePlusOn") private var frigatePlusOn: Bool = false
     
-    @AppStorage("cameraSubStream") private var cameraSubStream: Bool = false
-    @AppStorage("cameraRTSPPath") private var cameraRTSPPath: Bool = false
     @AppStorage("camerGo2Rtc") private var camerGo2Rtc: Bool = true
     @AppStorage("cameraHLS") private var cameraHLS: Bool = false
     
@@ -42,7 +38,6 @@ struct ViewSettings: View {
     @AppStorage("mqttUser") private var mqttUser: String = ""
     @AppStorage("mqttPassword") private var mqttPassword: String = ""
     
-    @AppStorage("isOnboarding") var isOnboarding: Bool?
     @AppStorage("tipsSettingsPairDevice") private var tipsSettingsPairDevice: Bool = true
     @AppStorage("tipsSettingsNVR") private var tipsSettingsNVR: Bool = true
     @AppStorage("tipsNotificationTemplate") private var tipsNotificationTemplate: Bool = true
@@ -96,40 +91,12 @@ struct ViewSettings: View {
                 Section {
                     Toggle("RTSP", isOn: $camerGo2Rtc)
                         .onChange(of: camerGo2Rtc) {
-                            if camerGo2Rtc == true {
-                                cameraRTSPPath = false
-                                cameraHLS = false
-                            } else {
-                                cameraHLS = true
-                            }
+                            cameraHLS = !camerGo2Rtc
                         }
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
-                    //                    Toggle("RTSP", isOn: $cameraRTSPPath)
-                    //                        .onChange(of: cameraRTSPPath) {
-                    //                            if cameraRTSPPath == true {
-                    //                                camerGo2Rtc = false
-                    //                                cameraHLS = false
-                    //                            }
-                    //                        }
-                    //.tint(Color(red: 0.153, green: 0.69, blue: 1))
                     Toggle("HLS", isOn: $cameraHLS)
                         .onChange(of: cameraHLS) {
-                            if cameraHLS == true {
-                                camerGo2Rtc = false
-                                cameraRTSPPath = false
-                                cameraSubStream = false
-                            }
-                            else {
-                                camerGo2Rtc = true
-                            }
-                        }
-                        .tint(Color(red: 0.153, green: 0.69, blue: 1))
-                    Toggle("Use Sub Stream", isOn: $cameraSubStream)
-                        .onChange(of: cameraSubStream) {
-                            if cameraSubStream == true {
-                                cameraHLS = false
-                                camerGo2Rtc = true
-                            }
+                            camerGo2Rtc = !cameraHLS
                         }
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
                 } header: {
@@ -285,23 +252,21 @@ struct ViewSettings: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     Toggle("Https", isOn: $nvrIsHttps)
                         .tint(Color(red: 0.153, green: 0.69, blue: 1))
-                    //                    LabeledContent("NVR Synced", value: "No")
                     
-                    Label(nvrManager.getConnectionState() ? "Connected" : "Disconnected", systemImage: "cable.connector")
+                    Label(config.getConnectionState() ? "Connected" : "Disconnected", systemImage: "cable.connector")
                         .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundStyle(nvrManager.getConnectionState() ? Color(red: 0.153, green: 0.69, blue: 1) : .red)
+                        .foregroundStyle(config.getConnectionState() ? Color(red: 0.153, green: 0.69, blue: 1) : .red)
                     
                     Button("Save Connection") {
                         //Sync data accross view and model
-                        nvrManager.setHttps(http: nvrIsHttps )
-                        nvrManager.setIP(ip: nvrIPAddress )
-                        nvrManager.setPort( port: nvrPortAddress )
+                        config.setHttps(http: nvrIsHttps )
+                        config.setIP(ip: nvrIPAddress )
+                        config.setPort(port: nvrPortAddress)
                         
-                        nvrManager.checkConnectionStatus(){data,error in
-                            Log.shared().print(page: "ViewSetting", fn: "NVR Connection", type: "ERROR", text: "\(String(describing: error))")
+                        Task {
+                            await config.checkConnectionStatus()
                         }
                     }
-                    //.buttonStyle(.bordered)
                     .buttonStyle(CustomPressEffectButtonStyle())
                     .tint(Color(white: 0.58))
                     .scaleEffect(scale)
@@ -355,30 +320,30 @@ struct ViewSettings: View {
                         .foregroundColor(.orange)
                 }
                 
-                Section{
-                    Button("Clear All Storage") {
-                        showingAlert = true
-                    }
-                    .alert("Remove All Events", isPresented: $showingAlert) {
-                        Button("OK", role: .destructive ) {
-                            print("Clear All Storage")
-                            //Delete SQLite
-                            let _ = EventStorage.shared.delete()
-                        }
-                    }
-                    //.buttonStyle(.bordered)
-                    .buttonStyle(CustomPressEffectButtonStyle())
-                    .tint(Color(white: 0.58))
-                    .scaleEffect(scale)
-                    .animation(.linear(duration: 1), value: scale)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    
-                    
-                } header: {
-                    Text("SQLite")
-                        .font(.caption)
-                        .foregroundColor(.orange)
-                }
+//                Section{
+//                    Button("Clear All Storage") {
+//                        showingAlert = true
+//                    }
+//                    .alert("Remove All Events", isPresented: $showingAlert) {
+//                        Button("OK", role: .destructive ) {
+//                            print("Clear All Storage")
+//                            //Delete SQLite
+//                            let _ = EventStorage.shared.delete()
+//                        }
+//                    }
+//                    //.buttonStyle(.bordered)
+//                    .buttonStyle(CustomPressEffectButtonStyle())
+//                    .tint(Color(white: 0.58))
+//                    .scaleEffect(scale)
+//                    .animation(.linear(duration: 1), value: scale)
+//                    .frame(maxWidth: .infinity, alignment: .trailing)
+//                    
+//                    
+//                } header: {
+//                    Text("SQLite")
+//                        .font(.caption)
+//                        .foregroundColor(.orange)
+//                }
                 
                 Section{
                     
@@ -430,7 +395,6 @@ struct ViewSettings: View {
                 
                 Section{
                     Button( action: {
-                        isOnboarding = true
                         tipsSettingsPairDevice = true
                         tipsSettingsNVR = true
                         tipsNotificationTemplate = true

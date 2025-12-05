@@ -8,15 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		17712C8F2EDF700400392D79 /* VLCKitSPM in Frameworks */ = {isa = PBXBuildFile; productRef = 17712C8E2EDF700400392D79 /* VLCKitSPM */; };
+		17712C932EE1316400392D79 /* FrigateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712C922EE1316400392D79 /* FrigateService.swift */; };
+		17712C952EE13D5200392D79 /* EventsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712C942EE13D5200392D79 /* EventsListView.swift */; };
+		17712C9D2EE239C900392D79 /* DetectionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712C9C2EE239C900392D79 /* DetectionObject.swift */; };
+		17712C9F2EE239E500392D79 /* ReviewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712C9E2EE239E500392D79 /* ReviewResponse.swift */; };
+		17712CA12EE23AA000392D79 /* Serviceable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712CA02EE23AA000392D79 /* Serviceable.swift */; };
+		17712CA52EE242E100392D79 /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712CA42EE242E100392D79 /* EventDetailView.swift */; };
+		17712CA82EE2562200392D79 /* CardBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17712CA72EE2562200392D79 /* CardBackground.swift */; };
 		17FE02E52EDF6D58002E66EA /* CocoaMQTT in Frameworks */ = {isa = PBXBuildFile; productRef = 17FE02E42EDF6D58002E66EA /* CocoaMQTT */; };
 		17FE02E72EDF6D58002E66EA /* CocoaMQTTWebSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 17FE02E62EDF6D58002E66EA /* CocoaMQTTWebSocket */; };
 		34045AE32EBFD25F00D90B7F /* NVRConfigurationCall2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34045AE22EBFD25F00D90B7F /* NVRConfigurationCall2.swift */; };
 		34045AE52EC046FE00D90B7F /* ViewCameraDetails2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34045AE42EC046F900D90B7F /* ViewCameraDetails2.swift */; };
-		34045AE72EC2CDA200D90B7F /* ViewQuickDayFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34045AE62EC2CD9200D90B7F /* ViewQuickDayFilter.swift */; };
-		340616372BF91BB200296130 /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 340616362BF91BB200296130 /* SQLite */; };
 		340AAFF12BA0A5CC00EB69F4 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AAFF02BA0A5CC00EB69F4 /* NotificationService.swift */; };
 		340AAFF52BA0A5CC00EB69F4 /* NotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 340AAFEE2BA0A5CB00EB69F4 /* NotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		340AAFFB2BA2406D00EB69F4 /* APIRequestor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 340AAFFA2BA2406C00EB69F4 /* APIRequestor.swift */; };
 		340AAFFF2BA38A4D00EB69F4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340AAFFE2BA38A4D00EB69F4 /* AudioToolbox.framework */; };
 		340AB0012BA38A5800EB69F4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340AB0002BA38A5800EB69F4 /* AVFoundation.framework */; };
 		340AB0032BA38A6300EB69F4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 340AB0022BA38A6300EB69F4 /* CFNetwork.framework */; };
@@ -40,46 +44,28 @@
 		3421034F2C100B4800CBBF83 /* TopicFrigateEventMQTT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3421034E2C100B4800CBBF83 /* TopicFrigateEventMQTT.swift */; };
 		342103522C11382D00CBBF83 /* ViewNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342103512C11382D00CBBF83 /* ViewNotificationManager.swift */; };
 		342103542C11645600CBBF83 /* NotificationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342103532C11645600CBBF83 /* NotificationTemplate.swift */; };
-		342103632C1B5C6000CBBF83 /* OnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342103622C1B5C6000CBBF83 /* OnBoarding.swift */; };
-		342103652C1B5CFE00CBBF83 /* ViewInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342103642C1B5CFE00CBBF83 /* ViewInstructions.swift */; };
-		342103672C1B614000CBBF83 /* ViewOnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342103662C1B614000CBBF83 /* ViewOnBoarding.swift */; };
-		342554BE2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342554BD2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift */; };
-		346542E02B9783860037BA1D /* ViewEventsHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 346542DF2B9783860037BA1D /* ViewEventsHistory.swift */; };
 		348333A22BB8AB9700ED1DF2 /* RTSPPlayer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */; };
 		348333D72BBB241E00ED1DF2 /* ViewNVRDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348333D62BBB241E00ED1DF2 /* ViewNVRDetails.swift */; };
-		348333D92BBCAF9300ED1DF2 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348333D82BBCAF9300ED1DF2 /* Helpers.swift */; };
-		348AB7B82BA54B33001ADE6C /* ViewEventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348AB7B72BA54B33001ADE6C /* ViewEventCard.swift */; };
 		34A4F4B02C066F0D0052B08A /* NVRConfigurationHTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A4F4AF2C066F0D0052B08A /* NVRConfigurationHTTP.swift */; };
-		34BBA4762BAB449C00A6004E /* ViewFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA4752BAB449C00A6004E /* ViewFilter.swift */; };
+		34BBA4762BAB449C00A6004E /* EventFiltersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA4752BAB449C00A6004E /* EventFiltersView.swift */; };
 		34BBA4782BAB45C300A6004E /* EventFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA4772BAB45C300A6004E /* EventFilter.swift */; };
 		34BBA47A2BABC40C00A6004E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA4792BABC40C00A6004E /* AppDelegate.swift */; };
-		34BBA47F2BAE164400A6004E /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA47E2BAE164400A6004E /* DataController.swift */; };
-		34BBA4812BAE3A9000A6004E /* EventStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BBA4802BAE3A9000A6004E /* EventStorage.swift */; };
-		34CF05102ED7DCE100B8B494 /* ViewEventImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34CF050F2ED7DCE100B8B494 /* ViewEventImage.swift */; };
 		34D3D0062C0AA17300E263B5 /* HLSPlayer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3D0052C0AA17300E263B5 /* HLSPlayer2.swift */; };
 		34D3D0082C0AA32900E263B5 /* ViewCameraHLSFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D3D0072C0AA32900E263B5 /* ViewCameraHLSFullScreen.swift */; };
 		34D5EFD62B92AB1F002A84B0 /* NVR_ViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFD52B92AB1F002A84B0 /* NVR_ViewerApp.swift */; };
 		34D5EFD82B92AB1F002A84B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFD72B92AB1F002A84B0 /* ContentView.swift */; };
 		34D5EFDA2B92AB22002A84B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D5EFD92B92AB22002A84B0 /* Assets.xcassets */; };
 		34D5EFDD2B92AB22002A84B0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34D5EFDC2B92AB22002A84B0 /* Preview Assets.xcassets */; };
-		34D5EFE72B92AB76002A84B0 /* ViewEventListHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFE62B92AB75002A84B0 /* ViewEventListHome.swift */; };
 		34D5EFE92B92ABA4002A84B0 /* ViewCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFE82B92ABA4002A84B0 /* ViewCamera.swift */; };
 		34D5EFEB2B92ABDC002A84B0 /* ViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFEA2B92ABDC002A84B0 /* ViewSettings.swift */; };
-		34D5EFED2B92AC0C002A84B0 /* ViewConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFEC2B92AC0C002A84B0 /* ViewConnection.swift */; };
 		34D5EFF12B92B1CB002A84B0 /* MQTTManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFF02B92B1CB002A84B0 /* MQTTManager.swift */; };
 		34D5EFF32B92B1DF002A84B0 /* MQTTState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFF22B92B1DF002A84B0 /* MQTTState.swift */; };
 		34D5EFF92B92B374002A84B0 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFF82B92B374002A84B0 /* Extension.swift */; };
-		34D5EFFB2B92B3DB002A84B0 /* ViewEventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFFA2B92B3DB002A84B0 /* ViewEventDetail.swift */; };
 		34D5EFFF2B92B419002A84B0 /* ViewPlayVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5EFFE2B92B419002A84B0 /* ViewPlayVideo.swift */; };
-		34D5F0032B92B453002A84B0 /* ViewUIImageFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0022B92B453002A84B0 /* ViewUIImageFull.swift */; };
-		34D5F0052B92B490002A84B0 /* APIBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0042B92B490002A84B0 /* APIBuilder.swift */; };
 		34D5F0072B92B4C3002A84B0 /* TopicFrigateEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0062B92B4C3002A84B0 /* TopicFrigateEvent.swift */; };
-		34D5F0092B92B4FA002A84B0 /* EndpointOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0082B92B4FA002A84B0 /* EndpointOptions.swift */; };
 		34D5F00C2B92B57A002A84B0 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F00B2B92B57A002A84B0 /* Enums.swift */; };
 		34D5F0132B950F34002A84B0 /* MQTTConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0122B950F34002A84B0 /* MQTTConfig.swift */; };
-		34D5F0152B9510AC002A84B0 /* NVRConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0142B9510AB002A84B0 /* NVRConfig.swift */; };
-		34D5F0172B963F07002A84B0 /* ImageContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0162B963F06002A84B0 /* ImageContainer.swift */; };
-		34E544EF2B9A721300137F34 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E544EE2B9A721300137F34 /* NotificationHandler.swift */; };
+		34D5F0152B9510AC002A84B0 /* NVRConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D5F0142B9510AB002A84B0 /* NVRConfiguration.swift */; };
 		34E544F32B9ABD8C00137F34 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34E544F22B9ABD8C00137F34 /* NotificationManager.swift */; };
 		34FEA8082BEAC2D80015E8A6 /* ViewCameraFullScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FEA8072BEAC2D80015E8A6 /* ViewCameraFullScreen.swift */; };
 /* End PBXBuildFile section */
@@ -109,13 +95,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		17712C922EE1316400392D79 /* FrigateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrigateService.swift; sourceTree = "<group>"; };
+		17712C942EE13D5200392D79 /* EventsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsListView.swift; sourceTree = "<group>"; };
+		17712C9C2EE239C900392D79 /* DetectionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionObject.swift; sourceTree = "<group>"; };
+		17712C9E2EE239E500392D79 /* ReviewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewResponse.swift; sourceTree = "<group>"; };
+		17712CA02EE23AA000392D79 /* Serviceable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serviceable.swift; sourceTree = "<group>"; };
+		17712CA42EE242E100392D79 /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
+		17712CA72EE2562200392D79 /* CardBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBackground.swift; sourceTree = "<group>"; };
 		34045AE22EBFD25F00D90B7F /* NVRConfigurationCall2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVRConfigurationCall2.swift; sourceTree = "<group>"; };
 		34045AE42EC046F900D90B7F /* ViewCameraDetails2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCameraDetails2.swift; sourceTree = "<group>"; };
-		34045AE62EC2CD9200D90B7F /* ViewQuickDayFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewQuickDayFilter.swift; sourceTree = "<group>"; };
 		340AAFEE2BA0A5CB00EB69F4 /* NotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		340AAFF02BA0A5CC00EB69F4 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		340AAFF22BA0A5CC00EB69F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		340AAFFA2BA2406C00EB69F4 /* APIRequestor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestor.swift; sourceTree = "<group>"; };
 		340AAFFE2BA38A4D00EB69F4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		340AB0002BA38A5800EB69F4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		340AB0022BA38A6300EB69F4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -139,24 +130,14 @@
 		3421034E2C100B4800CBBF83 /* TopicFrigateEventMQTT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicFrigateEventMQTT.swift; sourceTree = "<group>"; };
 		342103512C11382D00CBBF83 /* ViewNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewNotificationManager.swift; sourceTree = "<group>"; };
 		342103532C11645600CBBF83 /* NotificationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTemplate.swift; sourceTree = "<group>"; };
-		342103622C1B5C6000CBBF83 /* OnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoarding.swift; sourceTree = "<group>"; };
-		342103642C1B5CFE00CBBF83 /* ViewInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInstructions.swift; sourceTree = "<group>"; };
-		342103662C1B614000CBBF83 /* ViewOnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOnBoarding.swift; sourceTree = "<group>"; };
-		342554BD2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUIImageFull2.swift; sourceTree = "<group>"; };
-		346542DF2B9783860037BA1D /* ViewEventsHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventsHistory.swift; sourceTree = "<group>"; };
-		346542E52B9982D70037BA1D /* NVR-Viewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "NVR-Viewer-Info.plist"; sourceTree = SOURCE_ROOT; };
+		346542E52B9982D70037BA1D /* NVR-Viewer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NVR-Viewer-Info.plist"; sourceTree = SOURCE_ROOT; };
 		348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTSPPlayer2.swift; sourceTree = "<group>"; };
 		348333D62BBB241E00ED1DF2 /* ViewNVRDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewNVRDetails.swift; sourceTree = "<group>"; };
-		348333D82BBCAF9300ED1DF2 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		348AB7B72BA54B33001ADE6C /* ViewEventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventCard.swift; sourceTree = "<group>"; };
 		349E9F432B9BC5EC002F83C5 /* NVR Viewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "NVR Viewer.entitlements"; sourceTree = "<group>"; };
 		34A4F4AF2C066F0D0052B08A /* NVRConfigurationHTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVRConfigurationHTTP.swift; sourceTree = "<group>"; };
-		34BBA4752BAB449C00A6004E /* ViewFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFilter.swift; sourceTree = "<group>"; };
+		34BBA4752BAB449C00A6004E /* EventFiltersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFiltersView.swift; sourceTree = "<group>"; };
 		34BBA4772BAB45C300A6004E /* EventFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventFilter.swift; sourceTree = "<group>"; };
 		34BBA4792BABC40C00A6004E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		34BBA47E2BAE164400A6004E /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		34BBA4802BAE3A9000A6004E /* EventStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStorage.swift; sourceTree = "<group>"; };
-		34CF050F2ED7DCE100B8B494 /* ViewEventImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventImage.swift; sourceTree = "<group>"; };
 		34D3D0052C0AA17300E263B5 /* HLSPlayer2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLSPlayer2.swift; sourceTree = "<group>"; };
 		34D3D0072C0AA32900E263B5 /* ViewCameraHLSFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCameraHLSFullScreen.swift; sourceTree = "<group>"; };
 		34D5EFD22B92AB1F002A84B0 /* NVR Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NVR Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,24 +145,16 @@
 		34D5EFD72B92AB1F002A84B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		34D5EFD92B92AB22002A84B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		34D5EFDC2B92AB22002A84B0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		34D5EFE62B92AB75002A84B0 /* ViewEventListHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventListHome.swift; sourceTree = "<group>"; };
 		34D5EFE82B92ABA4002A84B0 /* ViewCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCamera.swift; sourceTree = "<group>"; };
 		34D5EFEA2B92ABDC002A84B0 /* ViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSettings.swift; sourceTree = "<group>"; };
-		34D5EFEC2B92AC0C002A84B0 /* ViewConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConnection.swift; sourceTree = "<group>"; };
 		34D5EFF02B92B1CB002A84B0 /* MQTTManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTManager.swift; sourceTree = "<group>"; };
 		34D5EFF22B92B1DF002A84B0 /* MQTTState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTState.swift; sourceTree = "<group>"; };
 		34D5EFF82B92B374002A84B0 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		34D5EFFA2B92B3DB002A84B0 /* ViewEventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewEventDetail.swift; sourceTree = "<group>"; };
 		34D5EFFE2B92B419002A84B0 /* ViewPlayVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPlayVideo.swift; sourceTree = "<group>"; };
-		34D5F0022B92B453002A84B0 /* ViewUIImageFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUIImageFull.swift; sourceTree = "<group>"; };
-		34D5F0042B92B490002A84B0 /* APIBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIBuilder.swift; sourceTree = "<group>"; };
 		34D5F0062B92B4C3002A84B0 /* TopicFrigateEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicFrigateEvent.swift; sourceTree = "<group>"; };
-		34D5F0082B92B4FA002A84B0 /* EndpointOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndpointOptions.swift; sourceTree = "<group>"; };
 		34D5F00B2B92B57A002A84B0 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		34D5F0122B950F34002A84B0 /* MQTTConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MQTTConfig.swift; sourceTree = "<group>"; };
-		34D5F0142B9510AB002A84B0 /* NVRConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVRConfig.swift; sourceTree = "<group>"; };
-		34D5F0162B963F06002A84B0 /* ImageContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageContainer.swift; sourceTree = "<group>"; };
-		34E544EE2B9A721300137F34 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		34D5F0142B9510AB002A84B0 /* NVRConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVRConfiguration.swift; sourceTree = "<group>"; };
 		34E544F22B9ABD8C00137F34 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		34FEA8072BEAC2D80015E8A6 /* ViewCameraFullScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCameraFullScreen.swift; sourceTree = "<group>"; };
 		BFE41FBD095732829C6ACFE8 /* Pods_NVR_Viewer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NVR_Viewer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,7 +196,6 @@
 				340AB00D2BA38A9900EB69F4 /* CoreVideo.framework in Frameworks */,
 				340AB00B2BA38A8E00EB69F4 /* CoreText.framework in Frameworks */,
 				340AB0092BA38A8300EB69F4 /* CoreMedia.framework in Frameworks */,
-				340616372BF91BB200296130 /* SQLite in Frameworks */,
 				340AB0072BA38A7700EB69F4 /* CoreGraphics.framework in Frameworks */,
 				340AB0052BA38A6D00EB69F4 /* CoreFoundation.framework in Frameworks */,
 				340AB0032BA38A6300EB69F4 /* CFNetwork.framework in Frameworks */,
@@ -235,6 +207,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17712C962EE2010600392D79 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				17712C942EE13D5200392D79 /* EventsListView.swift */,
+				34BBA4752BAB449C00A6004E /* EventFiltersView.swift */,
+				17712CA42EE242E100392D79 /* EventDetailView.swift */,
+				34D5EFFE2B92B419002A84B0 /* ViewPlayVideo.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		17712C992EE2015300392D79 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				17712C9B2EE239BC00392D79 /* Model */,
+				17712C9A2EE239B100392D79 /* Services */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		17712C9A2EE239B100392D79 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				17712C922EE1316400392D79 /* FrigateService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		17712C9B2EE239BC00392D79 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				17712C9C2EE239C900392D79 /* DetectionObject.swift */,
+				17712C9E2EE239E500392D79 /* ReviewResponse.swift */,
+				17712CA02EE23AA000392D79 /* Serviceable.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		17712CA62EE2560C00392D79 /* ViewComponents */ = {
+			isa = PBXGroup;
+			children = (
+				17712CA72EE2562200392D79 /* CardBackground.swift */,
+			);
+			path = ViewComponents;
+			sourceTree = "<group>";
+		};
+		17712CA92EE28D7100392D79 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				17712C962EE2010600392D79 /* Events */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
 		340AAFEF2BA0A5CC00EB69F4 /* NotificationExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -260,15 +286,6 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
-		342103612C1B5C0100CBBF83 /* OnBoarding */ = {
-			isa = PBXGroup;
-			children = (
-				342103642C1B5CFE00CBBF83 /* ViewInstructions.swift */,
-				342103662C1B614000CBBF83 /* ViewOnBoarding.swift */,
-			);
-			path = OnBoarding;
-			sourceTree = "<group>";
-		};
 		348333D52BBB240900ED1DF2 /* NVR */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,22 +295,14 @@
 			path = NVR;
 			sourceTree = "<group>";
 		};
-		348C50AD2BB2445A00A15446 /* Delegates */ = {
+		348C50AD2BB2445A00A15446 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				346542E52B9982D70037BA1D /* NVR-Viewer-Info.plist */,
 				34BBA4792BABC40C00A6004E /* AppDelegate.swift */,
+				349E9F432B9BC5EC002F83C5 /* NVR Viewer.entitlements */,
 			);
-			path = Delegates;
-			sourceTree = "<group>";
-		};
-		349924CC2BA7483200251309 /* Subs */ = {
-			isa = PBXGroup;
-			children = (
-				34D5F0022B92B453002A84B0 /* ViewUIImageFull.swift */,
-				34CF050F2ED7DCE100B8B494 /* ViewEventImage.swift */,
-				342554BD2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift */,
-			);
-			path = Subs;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 		34D5EFC92B92AB1F002A84B0 = {
@@ -318,17 +327,17 @@
 		34D5EFD42B92AB1F002A84B0 /* NVR Viewer */ = {
 			isa = PBXGroup;
 			children = (
-				349E9F432B9BC5EC002F83C5 /* NVR Viewer.entitlements */,
-				346542E52B9982D70037BA1D /* NVR-Viewer-Info.plist */,
-				348C50AD2BB2445A00A15446 /* Delegates */,
-				34D5F00A2B92B56E002A84B0 /* Enum */,
-				34D5EFEF2B92B190002A84B0 /* Extension */,
+				17712CA62EE2560C00392D79 /* ViewComponents */,
+				17712C992EE2015300392D79 /* API */,
+				17712CA92EE28D7100392D79 /* Features */,
+				34D5EFEF2B92B190002A84B0 /* Extensions */,
 				34D5EFE52B92AB33002A84B0 /* ViewModel */,
 				34D5EFE42B92AB2D002A84B0 /* Model */,
 				34D5EFE32B92AB29002A84B0 /* View */,
 				34D5EFD52B92AB1F002A84B0 /* NVR_ViewerApp.swift */,
 				34D5EFD72B92AB1F002A84B0 /* ContentView.swift */,
 				34D5EFD92B92AB22002A84B0 /* Assets.xcassets */,
+				348C50AD2BB2445A00A15446 /* SupportingFiles */,
 				34D5EFDB2B92AB22002A84B0 /* Preview Content */,
 			);
 			path = "NVR Viewer";
@@ -346,13 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				343C6E732ECA6A8C00D0A5D3 /* Tips */,
-				342103612C1B5C0100CBBF83 /* OnBoarding */,
-				342103502C11381000CBBF83 /* Notifications */,
 				342103472C0EA29000CBBF83 /* Log */,
-				348333D52BBB240900ED1DF2 /* NVR */,
 				34D5F00E2B940DFF002A84B0 /* Camera */,
-				34D5F0102B940E23002A84B0 /* Connection */,
-				34D5F0112B940E31002A84B0 /* Events */,
 				34D5F00F2B940E0E002A84B0 /* Settings */,
 			);
 			path = View;
@@ -364,15 +368,11 @@
 				34BBA4772BAB45C300A6004E /* EventFilter.swift */,
 				34D5F0062B92B4C3002A84B0 /* TopicFrigateEvent.swift */,
 				3421034E2C100B4800CBBF83 /* TopicFrigateEventMQTT.swift */,
-				34D5F0082B92B4FA002A84B0 /* EndpointOptions.swift */,
-				34D5F0162B963F06002A84B0 /* ImageContainer.swift */,
-				34BBA47E2BAE164400A6004E /* DataController.swift */,
-				34BBA4802BAE3A9000A6004E /* EventStorage.swift */,
 				34045AE22EBFD25F00D90B7F /* NVRConfigurationCall2.swift */,
 				34A4F4AF2C066F0D0052B08A /* NVRConfigurationHTTP.swift */,
 				342103452C0EA08F00CBBF83 /* Log.swift */,
 				342103532C11645600CBBF83 /* NotificationTemplate.swift */,
-				342103622C1B5C6000CBBF83 /* OnBoarding.swift */,
+				34D5F00B2B92B57A002A84B0 /* Enums.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -380,44 +380,31 @@
 		34D5EFE52B92AB33002A84B0 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				34D5F0042B92B490002A84B0 /* APIBuilder.swift */,
-				340AAFFA2BA2406C00EB69F4 /* APIRequestor.swift */,
 				34D5EFF02B92B1CB002A84B0 /* MQTTManager.swift */,
 				34D5EFF22B92B1DF002A84B0 /* MQTTState.swift */,
 				34D5F0122B950F34002A84B0 /* MQTTConfig.swift */,
-				34D5F0142B9510AB002A84B0 /* NVRConfig.swift */,
-				34E544EE2B9A721300137F34 /* NotificationHandler.swift */,
+				34D5F0142B9510AB002A84B0 /* NVRConfiguration.swift */,
 				34E544F22B9ABD8C00137F34 /* NotificationManager.swift */,
-				348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */,
-				34D3D0052C0AA17300E263B5 /* HLSPlayer2.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		34D5EFEF2B92B190002A84B0 /* Extension */ = {
+		34D5EFEF2B92B190002A84B0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				34D5EFF82B92B374002A84B0 /* Extension.swift */,
-				348333D82BBCAF9300ED1DF2 /* Helpers.swift */,
 			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		34D5F00A2B92B56E002A84B0 /* Enum */ = {
-			isa = PBXGroup;
-			children = (
-				34D5F00B2B92B57A002A84B0 /* Enums.swift */,
-			);
-			path = Enum;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		34D5F00E2B940DFF002A84B0 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
-				34D5EFFE2B92B419002A84B0 /* ViewPlayVideo.swift */,
 				34D5EFE82B92ABA4002A84B0 /* ViewCamera.swift */,
 				34FEA8072BEAC2D80015E8A6 /* ViewCameraFullScreen.swift */,
 				34D3D0072C0AA32900E263B5 /* ViewCameraHLSFullScreen.swift */,
+				348333A12BB8AB9700ED1DF2 /* RTSPPlayer2.swift */,
+				34D3D0052C0AA17300E263B5 /* HLSPlayer2.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -425,31 +412,11 @@
 		34D5F00F2B940E0E002A84B0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				342103502C11381000CBBF83 /* Notifications */,
+				348333D52BBB240900ED1DF2 /* NVR */,
 				34D5EFEA2B92ABDC002A84B0 /* ViewSettings.swift */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		34D5F0102B940E23002A84B0 /* Connection */ = {
-			isa = PBXGroup;
-			children = (
-				34D5EFEC2B92AC0C002A84B0 /* ViewConnection.swift */,
-			);
-			path = Connection;
-			sourceTree = "<group>";
-		};
-		34D5F0112B940E31002A84B0 /* Events */ = {
-			isa = PBXGroup;
-			children = (
-				349924CC2BA7483200251309 /* Subs */,
-				34D5EFE62B92AB75002A84B0 /* ViewEventListHome.swift */,
-				346542DF2B9783860037BA1D /* ViewEventsHistory.swift */,
-				348AB7B72BA54B33001ADE6C /* ViewEventCard.swift */,
-				34D5EFFA2B92B3DB002A84B0 /* ViewEventDetail.swift */,
-				34BBA4752BAB449C00A6004E /* ViewFilter.swift */,
-				34045AE62EC2CD9200D90B7F /* ViewQuickDayFilter.swift */,
-			);
-			path = Events;
 			sourceTree = "<group>";
 		};
 		3D31F0A831BCC9F625F7166E /* Frameworks */ = {
@@ -517,7 +484,6 @@
 			);
 			name = "NVR Viewer";
 			packageProductDependencies = (
-				340616362BF91BB200296130 /* SQLite */,
 				17FE02E42EDF6D58002E66EA /* CocoaMQTT */,
 				17FE02E62EDF6D58002E66EA /* CocoaMQTTWebSocket */,
 				17712C8E2EDF700400392D79 /* VLCKitSPM */,
@@ -553,7 +519,6 @@
 			);
 			mainGroup = 34D5EFC92B92AB1F002A84B0;
 			packageReferences = (
-				340616352BF91BB200296130 /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 				17FE02E32EDF6D58002E66EA /* XCRemoteSwiftPackageReference "CocoaMQTT" */,
 				17FE02EA2EDF6E62002E66EA /* XCRemoteSwiftPackageReference "vlckit-spm" */,
 			);
@@ -601,54 +566,41 @@
 			buildActionMask = 2147483647;
 			files = (
 				34BBA4782BAB45C300A6004E /* EventFilter.swift in Sources */,
-				342103672C1B614000CBBF83 /* ViewOnBoarding.swift in Sources */,
 				34045AE52EC046FE00D90B7F /* ViewCameraDetails2.swift in Sources */,
-				342103632C1B5C6000CBBF83 /* OnBoarding.swift in Sources */,
-				340AAFFB2BA2406D00EB69F4 /* APIRequestor.swift in Sources */,
 				34D5EFFF2B92B419002A84B0 /* ViewPlayVideo.swift in Sources */,
 				342103462C0EA08F00CBBF83 /* Log.swift in Sources */,
 				34D5F00C2B92B57A002A84B0 /* Enums.swift in Sources */,
+				17712CA12EE23AA000392D79 /* Serviceable.swift in Sources */,
 				34045AE32EBFD25F00D90B7F /* NVRConfigurationCall2.swift in Sources */,
+				17712CA82EE2562200392D79 /* CardBackground.swift in Sources */,
 				342103522C11382D00CBBF83 /* ViewNotificationManager.swift in Sources */,
-				342554BE2EDBD0D000C9B0F4 /* ViewUIImageFull2.swift in Sources */,
-				34D5EFE72B92AB76002A84B0 /* ViewEventListHome.swift in Sources */,
-				34D5EFFB2B92B3DB002A84B0 /* ViewEventDetail.swift in Sources */,
+				17712CA52EE242E100392D79 /* EventDetailView.swift in Sources */,
 				348333A22BB8AB9700ED1DF2 /* RTSPPlayer2.swift in Sources */,
-				348333D92BBCAF9300ED1DF2 /* Helpers.swift in Sources */,
+				17712C952EE13D5200392D79 /* EventsListView.swift in Sources */,
 				34BBA47A2BABC40C00A6004E /* AppDelegate.swift in Sources */,
 				34D5EFF32B92B1DF002A84B0 /* MQTTState.swift in Sources */,
 				34D3D0082C0AA32900E263B5 /* ViewCameraHLSFullScreen.swift in Sources */,
-				348AB7B82BA54B33001ADE6C /* ViewEventCard.swift in Sources */,
 				342103542C11645600CBBF83 /* NotificationTemplate.swift in Sources */,
 				34A4F4B02C066F0D0052B08A /* NVRConfigurationHTTP.swift in Sources */,
 				34D5EFD82B92AB1F002A84B0 /* ContentView.swift in Sources */,
-				34D5F0052B92B490002A84B0 /* APIBuilder.swift in Sources */,
 				3421034F2C100B4800CBBF83 /* TopicFrigateEventMQTT.swift in Sources */,
+				17712C932EE1316400392D79 /* FrigateService.swift in Sources */,
 				34D5F0072B92B4C3002A84B0 /* TopicFrigateEvent.swift in Sources */,
 				34D5EFF92B92B374002A84B0 /* Extension.swift in Sources */,
 				34E544F32B9ABD8C00137F34 /* NotificationManager.swift in Sources */,
-				342103652C1B5CFE00CBBF83 /* ViewInstructions.swift in Sources */,
-				34BBA4762BAB449C00A6004E /* ViewFilter.swift in Sources */,
-				34D5EFED2B92AC0C002A84B0 /* ViewConnection.swift in Sources */,
-				34D5F0092B92B4FA002A84B0 /* EndpointOptions.swift in Sources */,
+				34BBA4762BAB449C00A6004E /* EventFiltersView.swift in Sources */,
+				17712C9D2EE239C900392D79 /* DetectionObject.swift in Sources */,
 				34D5F0132B950F34002A84B0 /* MQTTConfig.swift in Sources */,
 				34FEA8082BEAC2D80015E8A6 /* ViewCameraFullScreen.swift in Sources */,
 				34D5EFEB2B92ABDC002A84B0 /* ViewSettings.swift in Sources */,
-				346542E02B9783860037BA1D /* ViewEventsHistory.swift in Sources */,
+				17712C9F2EE239E500392D79 /* ReviewResponse.swift in Sources */,
 				34D5EFD62B92AB1F002A84B0 /* NVR_ViewerApp.swift in Sources */,
-				34D5F0152B9510AC002A84B0 /* NVRConfig.swift in Sources */,
+				34D5F0152B9510AC002A84B0 /* NVRConfiguration.swift in Sources */,
 				34D3D0062C0AA17300E263B5 /* HLSPlayer2.swift in Sources */,
-				34CF05102ED7DCE100B8B494 /* ViewEventImage.swift in Sources */,
-				34045AE72EC2CDA200D90B7F /* ViewQuickDayFilter.swift in Sources */,
-				34BBA47F2BAE164400A6004E /* DataController.swift in Sources */,
 				34D5EFE92B92ABA4002A84B0 /* ViewCamera.swift in Sources */,
 				34D5EFF12B92B1CB002A84B0 /* MQTTManager.swift in Sources */,
-				34BBA4812BAE3A9000A6004E /* EventStorage.swift in Sources */,
-				34D5F0032B92B453002A84B0 /* ViewUIImageFull.swift in Sources */,
-				34D5F0172B963F07002A84B0 /* ImageContainer.swift in Sources */,
 				342103492C0EA29B00CBBF83 /* ViewLog.swift in Sources */,
 				348333D72BBB241E00ED1DF2 /* ViewNVRDetails.swift in Sources */,
-				34E544EF2B9A721300137F34 /* NotificationHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,7 +619,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2CYMS2KM88;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NotificationExtension/Info.plist;
@@ -679,8 +632,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew-John.NVR-Viewer.NotificationExtension";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacobanks.frigateviewer.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -694,7 +647,8 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2CYMS2KM88;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NotificationExtension/Info.plist;
@@ -706,8 +660,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew-John.NVR-Viewer.NotificationExtension";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacobanks.frigateviewer.NotificationExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -770,7 +724,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -829,7 +783,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -846,31 +800,32 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "NVR Viewer/NVR Viewer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "NVR Viewer/SupportingFiles/NVR Viewer.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NVR Viewer/Preview Content\"";
+				DEVELOPMENT_TEAM = 2CYMS2KM88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NVR-Viewer-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Viewu;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app requires local network access to find and connect to your smart home devices if you are using Viewu on your LAN.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This permission allows Viewu to communicate with your Frigate server over the local network. For optimal security and reliability, it is recommended to access your servers using an FQDN secured with a valid SSL certificate over HTTPS.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Viewu requests permission to access your photo library in order to save event snapshot images directly to your device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew-John.NVR-Viewer";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacobanks.frigateviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -885,32 +840,33 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = "NVR Viewer/NVR Viewer.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "NVR Viewer/SupportingFiles/NVR Viewer.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 55;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NVR Viewer/Preview Content\"";
+				DEVELOPMENT_TEAM = 2CYMS2KM88;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "NVR-Viewer-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Viewu;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app requires local network access to find and connect to your smart home devices if you are using Viewu on your LAN.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This permission allows Viewu to communicate with your Frigate server over the local network. For optimal security and reliability, it is recommended to access your servers using an FQDN secured with a valid SSL certificate over HTTPS.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Viewu requests permission to access your photo library in order to save event snapshot images directly to your device.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.13;
-				PRODUCT_BUNDLE_IDENTIFIER = "Matthew-John.NVR-Viewer";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jacobanks.frigateviewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -969,14 +925,6 @@
 				minimumVersion = 3.6.0;
 			};
 		};
-		340616352BF91BB200296130 /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.15.3;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -994,11 +942,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 17FE02E32EDF6D58002E66EA /* XCRemoteSwiftPackageReference "CocoaMQTT" */;
 			productName = CocoaMQTTWebSocket;
-		};
-		340616362BF91BB200296130 /* SQLite */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 340616352BF91BB200296130 /* XCRemoteSwiftPackageReference "SQLite.swift" */;
-			productName = SQLite;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

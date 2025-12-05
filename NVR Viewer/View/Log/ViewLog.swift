@@ -7,35 +7,18 @@
 
 import SwiftUI
 
-struct User: Identifiable {
-    let id: Int
-    var name: String
-    var score: Int
-    var page: String
-}
-
 struct ViewLog: View {
-    
     var list: [LogItem] = []
-    
-    @State private var users = [
-        User(id: 1, name: "Taylor Swift", score: 95, page: "MQTTSTATE"),
-        User(id: 2, name: "Justin Bieber", score: 80, page: "ContentView"),
-        User(id: 3, name: "Adele Adkins", score: 85, page: "EventStorage")
-    ]
-    
-    //Use the dismiss action
-    @Environment(\.dismiss) var dismiss
-    
+
     init() {
         self.list = Log.shared().getList()
     }
+
     var body: some View {
  
         VStack{
             ScrollView{
                 ForEach(list, id: \.self) { row in
-                    
                     HStack{
                         Text(row.type)
                             .font(.caption)
